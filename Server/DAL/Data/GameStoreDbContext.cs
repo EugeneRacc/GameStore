@@ -28,9 +28,6 @@ namespace DAL.Data
                         .HasForeignKey(fk => fk.ParentId)
                         .Metadata.DeleteBehavior = DeleteBehavior.Restrict;
 
-            modelBuilder.Entity<Game>()
-                        .Property(x => x.Price)
-                        .HasColumnType("Money");
         }
 
         public DbSet<Comment> Comments { get; set; }
