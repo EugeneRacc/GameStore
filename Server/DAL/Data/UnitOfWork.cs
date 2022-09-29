@@ -3,7 +3,7 @@ using DAL.Repositories;
 
 namespace DAL.Data
 {
-    internal class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly GameStoreDbContext _dbContext;
         private ICommentRepository _commentRepository; 
