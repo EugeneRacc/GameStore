@@ -13,6 +13,6 @@ namespace BLL.Interfaces
         Task<TModel> GetByIdAsync(Guid id);
         Task<GameModel> AddAsync(TModel model);
         Task UpdateAsync(TModel model);
-        Task Delete(TModel model);
+        Task DeleteAsync(TModel model);
     }
 }

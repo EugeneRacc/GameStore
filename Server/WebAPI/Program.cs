@@ -5,6 +5,7 @@ using BLL.Services;
 using DAL.Data;
 using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using WebAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+app.UseCustomExceptionHandler();
 
 app.UseHttpsRedirection();
 

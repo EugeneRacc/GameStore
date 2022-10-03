@@ -7,9 +7,7 @@ namespace BLL.Tests.Helpers
     {
         public static IMapper CreateMapperProfile()
         {
-            var myProfile = new AutoMapperProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
-
+            var configuration = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapperProfile>());
             return new AutoMapper.Mapper(configuration);
         }
     }

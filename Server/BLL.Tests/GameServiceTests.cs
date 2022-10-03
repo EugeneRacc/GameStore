@@ -1,140 +1,91 @@
 using BLL.Models;
 using BLL.Services;
-using DAL.Data;
 using DAL.Entities;
-using Microsoft.EntityFrameworkCore;
 using Moq;
-using System.Collections.Generic;
-using System;
-using System.Collections;
+using AutoFixture;
 using BLL.Exceptions;
 using DAL.Interfaces;
 using BLL.Tests.Helpers;
+using FluentAssertions;
 
 namespace BLL.Tests
 {
     public class GameServiceTests
     {
-        public readonly Mock<IUnitOfWork> _dbMock = new Mock<IUnitOfWork>();
-        private readonly GameListEqualityComparer equalityList = new GameListEqualityComparer();
-        private readonly GameEqualityComparer equalityGame = new GameEqualityComparer();
+        private readonly Mock<IUnitOfWork> _dbMock = new Mock<IUnitOfWork>();
 
         [Fact]
         public async Task GetAllAsync_ShouldReturnAllGameModels()
         {
             //Arrange
-            var expected = GetTestGameModels;
-
+            var fixture = new Fixture();
+            var expected = fixture.Build<GameModel>().CreateMany().ToList();
+            var games = SeedData.CreateMapperProfile().Map<IEnumerable<Game>>(expected);
             _dbMock.Setup(x => x.GameRepository.GetAllAsync())
-                   .Returns(ReturnGames());
-
-            var userService = new GameService(_dbMock.Object, SeedData.CreateMapperProfile());
+                   .Returns(() => Task.FromResult(games));
+            var userService = new GameService(_dbMock.Object,SeedData.CreateMapperProfile());
 
             //act
             var actual = (await userService.GetAllAsync()).ToList();
             
             //assert
-            Assert.True(equalityList.Equals(expected, actual));
-
+            actual.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
         public async Task GetAllAsync_ThrowGameStoreException()
         {
             //Arrange
-            List<GameModel> expected = null;
-
+            var gamesEmpty = Enumerable.Empty<Game>();
             _dbMock.Setup(x => x.GameRepository.GetAllAsync())
-                   .Returns(GetInvalidData());
-
+                   .Returns(() => Task.FromResult(gamesEmpty));
             var userService = new GameService(_dbMock.Object, SeedData.CreateMapperProfile());
 
             //act
-            Func<Task> act = async () => (await userService.GetAllAsync()).ToList();
+            Func<Task> act = async () => await userService.GetAllAsync();
 
             //assert
-            await Assert.ThrowsAsync<GameStoreException>(act);
-
+            await act.Should().ThrowExactlyAsync<GameStoreException>();
         }
 
-        [Fact]
-        public async Task GetByIdAsync_GetOneGame()
+        [Theory]
+        [InlineData("2771a499-0254-4787-91e9-aa04d6483b6c")]
+        [InlineData("79c4c9a3-3366-4f48-b602-7f6442202b4b")]
+        [InlineData("ee6b5c82-d57f-432f-aa35-124b158bc0f9")]
+        public async Task GetByIdAsync_GetOneGame(Guid id)
         {
             //Arrange
-            var expected = GetTestGameModels[0];
-
+            var fixture = new Fixture();
+            var expected = fixture.Build<GameModel>()
+                                  .With(model => model.Id, id)
+                                  .Create();
+            var game = SeedData.CreateMapperProfile().Map<Game>(expected);
             _dbMock.Setup(x => x.GameRepository.GetByIdAsync(It.IsAny<Guid>()))
-                   .Returns(GetOneTestGame());
-
+                   .Returns(() => Task.FromResult(game));
             var userService = new GameService(_dbMock.Object, SeedData.CreateMapperProfile());
 
             //act
-            var actual = (await userService.GetByIdAsync(Guid.Parse("2771a499-0254-4787-91e9-aa04d6483b6c")));
+            var actual = (await userService.GetByIdAsync(id));
 
             //assert
-            Assert.True(equalityGame.Equals(expected, actual));
-
+            actual.Should().BeEquivalentTo(expected);
+            actual.Id.Should().Be(expected.Id);
         }
 
         [Fact]
         public async Task GetByIdAsync_ThrowException()
         {
             //Arrange
-            List<GameModel> expected = null;
-
             _dbMock.Setup(x => x.GameRepository.GetByIdAsync(It.IsAny<Guid>()))
-                   .Returns((async () => null));
-
+                   .Returns(Task.FromResult<Game>(null));
             var userService = new GameService(_dbMock.Object, SeedData.CreateMapperProfile());
 
             //act
-            Func<Task> act = async () => await userService.GetByIdAsync(Guid.Parse("2771a499-0254-4787-91e9-aa04d6483b6c"));
+            Func<Task> act = async () => await userService.GetByIdAsync(Guid.NewGuid());
 
             //assert
-            await Assert.ThrowsAsync<GameStoreException>(act);
-
+            await act.Should().ThrowExactlyAsync<GameStoreException>();
         }
 
-        #region Utility
-
-        private async Task<IEnumerable<Game>> ReturnGames()
-        {
-            return new List<Game>()
-            {
-                new Game { Id = Guid.Parse("2771a499-0254-4787-91e9-aa04d6483b6c"), Title = "The Witcher", Description = "Good Rpg", Price = 130.0m },
-                new Game { Id = Guid.Parse("6652626f-84da-4b22-b990-c2d428eedf8d"), Title = "The Witcher 1", Description = "Good Rpg", Price = 175.0m },
-                new Game { Id = Guid.Parse("79c4c9a3-3366-4f48-b602-7f6442202b4b"), Title = "The Witcher 2", Description = "Good Rpg", Price = 99.9m },
-                new Game { Id = Guid.Parse("a91c62ef-3a0a-493a-8e7c-ec9b5043e01c"), Title = "The Witcher 3", Description = "Good Rpg", Price = 270.0m },
-                new Game { Id = Guid.Parse("08952dc8-a89a-4d06-99ab-76624ffe76fc"), Title = "The Witcher 4", Description = "Good Rpg", Price = 130.0m },
-                new Game { Id = Guid.Parse("ee6b5c82-d57f-432f-aa35-124b158bc0f9"), Title = "The Witcher 5", Description = "Good Rpg", Price = 130.0m },
-                new Game { Id = Guid.Parse("2a919e12-aaef-406f-bb9f-0f89d151f316"), Title = "The Witcher 6", Description = "Good Rpg", Price = 130.0m },
-            }.AsEnumerable();
-        }
-
-        private List<GameModel> GetTestGameModels => new List<GameModel>()
-        {
-            new GameModel { Id = Guid.Parse("2771a499-0254-4787-91e9-aa04d6483b6c"), Title = "The Witcher", Description = "Good Rpg", Price = 130.0m },
-            new GameModel { Id = Guid.Parse("6652626f-84da-4b22-b990-c2d428eedf8d"), Title = "The Witcher 1", Description = "Good Rpg", Price = 175.0m },
-            new GameModel { Id = Guid.Parse("79c4c9a3-3366-4f48-b602-7f6442202b4b"), Title = "The Witcher 2", Description = "Good Rpg", Price = 99.9m },
-            new GameModel { Id = Guid.Parse("a91c62ef-3a0a-493a-8e7c-ec9b5043e01c"), Title = "The Witcher 3", Description = "Good Rpg", Price = 270.0m },
-            new GameModel { Id = Guid.Parse("08952dc8-a89a-4d06-99ab-76624ffe76fc"), Title = "The Witcher 4", Description = "Good Rpg", Price = 130.0m },
-            new GameModel { Id = Guid.Parse("ee6b5c82-d57f-432f-aa35-124b158bc0f9"), Title = "The Witcher 5", Description = "Good Rpg", Price = 130.0m },
-            new GameModel { Id = Guid.Parse("2a919e12-aaef-406f-bb9f-0f89d151f316"), Title = "The Witcher 6", Description = "Good Rpg", Price = 130.0m }
-        };
-
-        private async Task<IEnumerable<Game>> GetInvalidData()
-        {
-            return new List<Game>();
-        }
-        private async Task<Game> GetOneTestGame()
-        {
-            return new Game
-            {
-                Id = Guid.Parse("2771a499-0254-4787-91e9-aa04d6483b6c"), Title = "The Witcher",
-                Description = "Good Rpg", Price = 130.0m
-            };
-
-        }
-        #endregion
     }
 }

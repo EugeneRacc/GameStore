@@ -18,6 +18,7 @@ namespace BLL.Exceptions
             : base(message, inner)
         {
         }
+
         protected GameStoreException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

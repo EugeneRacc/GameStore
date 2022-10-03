@@ -21,85 +21,48 @@ namespace WebAPI.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetGames()
         {
             IEnumerable<GameModel> resultGames;
-            try
-            {
-                resultGames = await _gameService.GetAllAsync();
-            }
-            catch (Exception e)
-            {
-                return NotFound(e.Message);
-            }
-
+            resultGames = await _gameService.GetAllAsync();
             return Ok(resultGames);
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetGameById(string id)
         {
-            GameModel resultGames;
-            try
-            {
-                resultGames = await _gameService.GetByIdAsync(Guid.Parse(id));
-            }
-            catch (Exception e)
-            {
-                return NotFound(e.Message);
-            }
-
+            GameModel resultGames = await _gameService.GetByIdAsync(Guid.Parse(id));
             return Ok(resultGames);
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateGame([FromBody] GameModel model)
         {
-            GameModel newGame;
-            try
-            { 
-                newGame = await _gameService.AddAsync(model);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e);
-            }
-            return Ok(newGame);
+            var newGame = await _gameService.AddAsync(model);
+            return CreatedAtAction(nameof(GetGameById), new {id = model.Id},  model);
         }
 
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateGame([FromBody] GameModel model)
         {
-            try
-            {
-                await _gameService.UpdateAsync(model);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e);
-            }
+            await _gameService.UpdateAsync(model);
             return Ok("Updated successfully");
         }
 
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult DeleteGame([FromBody] GameModel model)
         {
-            try
-            {
-                _gameService.Delete(model);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e);
-            }
+            _gameService.DeleteAsync(model);
             return Ok("Deleted successfully");
         }
     }

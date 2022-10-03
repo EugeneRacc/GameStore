@@ -15,7 +15,6 @@ namespace DAL.Repositories
             _db = db;
         }
 
-
         public async Task<IEnumerable<Comment>> GetAllAsync()
         {
             return await _db.Comments.ToListAsync();

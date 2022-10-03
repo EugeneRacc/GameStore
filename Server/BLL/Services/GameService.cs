@@ -22,7 +22,6 @@ namespace BLL.Services
             var games = await _unitOfWork.GameRepository.GetAllAsync();
             if (games == null || !games.Any())
                 throw new GameStoreException("No games in store");
-            
             return _mapper.Map<IEnumerable<Game>, IEnumerable<GameModel>>(games);
         }
 
@@ -45,6 +44,8 @@ namespace BLL.Services
         public async Task UpdateAsync(GameModel model)
         {
             var game = await _unitOfWork.GameRepository.GetByIdWithNoTrack(model.Id ?? Guid.Empty);
+            if (game == null)
+                throw new GameStoreException($"Not found such game, probably id - {model.Id} is invalid");
             game.Title = model.Title;
             game.Description = model.Description;
             game.Price = model.Price;
@@ -52,7 +53,7 @@ namespace BLL.Services
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task Delete(GameModel model)
+        public async Task DeleteAsync(GameModel model)
         {
             _unitOfWork.GameRepository.Delete(_mapper.Map<Game>(model));
             await _unitOfWork.SaveAsync();
