@@ -52,7 +52,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("ReplieId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entities.Game", b =>
@@ -74,7 +74,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Games");
+                    b.ToTable("Games", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entities.GameGenre", b =>
@@ -89,7 +89,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("GameGenre");
+                    b.ToTable("GameGenre", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entities.GameImage", b =>
@@ -109,7 +109,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("GameImages");
+                    b.ToTable("GameImages", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entities.Genre", b =>
@@ -129,7 +129,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("Genre");
+                    b.ToTable("Genre", (string)null);
                 });
 
             modelBuilder.Entity("DAL.Entities.Comment", b =>
