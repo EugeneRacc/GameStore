@@ -3,16 +3,24 @@ using BLL.Services;
 using DAL.Entities;
 using Moq;
 using AutoFixture;
+using AutoMapper;
 using BLL.Exceptions;
 using DAL.Interfaces;
-using BLL.Tests.Helpers;
 using FluentAssertions;
+using BLL.Mapper;
 
 namespace BLL.Tests
 {
     public class GameServiceTests
     {
         private readonly Mock<IUnitOfWork> _dbMock = new Mock<IUnitOfWork>();
+        private readonly IMapper _mapper;
+
+        public GameServiceTests()
+        {
+            var configuration = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapperProfile>());
+            _mapper = new AutoMapper.Mapper(configuration);
+        }
 
         [Fact]
         public async Task GetAllAsync_ShouldReturnAllGameModels()
@@ -20,10 +28,10 @@ namespace BLL.Tests
             //Arrange
             var fixture = new Fixture();
             var expected = fixture.Build<GameModel>().CreateMany().ToList();
-            var games = SeedData.CreateMapperProfile().Map<IEnumerable<Game>>(expected);
+            var games = _mapper.Map<IEnumerable<Game>>(expected);
             _dbMock.Setup(x => x.GameRepository.GetAllAsync())
                    .Returns(() => Task.FromResult(games));
-            var userService = new GameService(_dbMock.Object,SeedData.CreateMapperProfile());
+            var userService = new GameService(_dbMock.Object,_mapper);
 
             //act
             var actual = (await userService.GetAllAsync()).ToList();
@@ -39,7 +47,7 @@ namespace BLL.Tests
             var gamesEmpty = Enumerable.Empty<Game>();
             _dbMock.Setup(x => x.GameRepository.GetAllAsync())
                    .Returns(() => Task.FromResult(gamesEmpty));
-            var userService = new GameService(_dbMock.Object, SeedData.CreateMapperProfile());
+            var userService = new GameService(_dbMock.Object, _mapper);
 
             //act
             Func<Task> act = async () => await userService.GetAllAsync();
@@ -59,10 +67,10 @@ namespace BLL.Tests
             var expected = fixture.Build<GameModel>()
                                   .With(model => model.Id, id)
                                   .Create();
-            var game = SeedData.CreateMapperProfile().Map<Game>(expected);
+            var game = _mapper.Map<Game>(expected);
             _dbMock.Setup(x => x.GameRepository.GetByIdAsync(It.IsAny<Guid>()))
                    .Returns(() => Task.FromResult(game));
-            var userService = new GameService(_dbMock.Object, SeedData.CreateMapperProfile());
+            var userService = new GameService(_dbMock.Object, _mapper);
 
             //act
             var actual = (await userService.GetByIdAsync(id));
@@ -78,7 +86,7 @@ namespace BLL.Tests
             //Arrange
             _dbMock.Setup(x => x.GameRepository.GetByIdAsync(It.IsAny<Guid>()))
                    .Returns(Task.FromResult<Game>(null));
-            var userService = new GameService(_dbMock.Object, SeedData.CreateMapperProfile());
+            var userService = new GameService(_dbMock.Object, _mapper);
 
             //act
             Func<Task> act = async () => await userService.GetByIdAsync(Guid.NewGuid());

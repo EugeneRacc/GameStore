@@ -11,6 +11,7 @@ namespace BLL.Services
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+
         public GameService(IUnitOfWork unoOfWork, IMapper mapper)
         {
             _mapper = mapper;
