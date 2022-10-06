@@ -10,7 +10,7 @@ namespace DAL.Data
         private IGameRepository _gameRepository;
         private IGameImageRepository _gameImageRepository;
         private IGenreRepository _genreRepository;
-
+        private IGameGenreRepository _gameGenreRepository;
         public UnitOfWork(GameStoreDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -50,6 +50,16 @@ namespace DAL.Data
                 if (_genreRepository == null)
                     _genreRepository = new GenreRepository(_dbContext);
                 return _genreRepository;
+            }
+        }
+
+        public IGameGenreRepository GameGenreRepository
+        {
+            get
+            {
+                if (_gameGenreRepository == null)
+                    _gameGenreRepository = new GameGenreRepository(_dbContext);
+                return _gameGenreRepository;
             }
         }
         

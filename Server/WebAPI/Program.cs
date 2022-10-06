@@ -2,9 +2,11 @@ using AutoMapper;
 using BLL.Interfaces;
 using BLL.Mapper;
 using BLL.Services;
+using DAL;
 using DAL.Data;
 using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using WebAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +31,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+InitializeDatabase(app);
 
 app.UseCustomExceptionHandler();
 
@@ -39,3 +42,10 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+static void InitializeDatabase(IHost host)
+{
+    using var scope = host.Services.CreateScope();
+    var services = scope.ServiceProvider;
+    SeedData.InitializeAsync(services).Wait();
+}
