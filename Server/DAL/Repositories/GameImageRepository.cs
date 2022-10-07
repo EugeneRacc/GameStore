@@ -15,7 +15,6 @@ namespace DAL.Repositories
             _db = dbContext;
         }
 
-
         public async Task<IEnumerable<GameImage>> GetAllAsync()
         {
             return await _db.GameImages.ToListAsync();

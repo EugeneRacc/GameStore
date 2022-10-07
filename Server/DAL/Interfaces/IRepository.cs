@@ -10,7 +10,5 @@ namespace DAL.Interfaces
         void Delete(TEntity entity);
         Task DeleteByIdAsync(Guid id);
         void Update(TEntity entity);
-        Task<TEntity> GetByIdWithNoTrack(Guid id);
-
     }
 }

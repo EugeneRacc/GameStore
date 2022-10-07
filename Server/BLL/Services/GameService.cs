@@ -30,7 +30,7 @@ namespace BLL.Services
 
         public async Task<GameModel> GetByIdAsync(Guid id)
         {
-            var game = await _unitOfWork.GameRepository.GetByIdAsync(id);
+            var game = await _unitOfWork.GameRepository.GetByIdWithDetailsAsync(id);
             if (game == null)
                 throw new GameStoreException("No such game in db");
             return _mapper.Map<GameModel>(game);
@@ -53,8 +53,8 @@ namespace BLL.Services
 
         public async Task UpdateAsync(GameModel model)
         {
-            var updatedGame = GetUpdatedGame(model).Result;
-            _unitOfWork.GameRepository.Update(updatedGame);
+            var updatedGame = GetUpdatedGame(model);
+            _unitOfWork.GameRepository.Update(updatedGame.Result);
             await UpdateGameGenres(model);
             await _unitOfWork.SaveAsync();
         }
@@ -67,7 +67,7 @@ namespace BLL.Services
 
         private async Task<Game> GetUpdatedGame(GameModel model)
         {
-            var game = await _unitOfWork.GameRepository.GetByIdWithNoTrack(model.Id ?? Guid.Empty);
+            var game = await _unitOfWork.GameRepository.GetByIdWithDetailsWithNoTrack(model.Id ?? Guid.Empty);
             if (game == null)
                 throw new GameStoreException($"Not found such game, probably id - {model.Id} is invalid");
             game.Title = model.Title;

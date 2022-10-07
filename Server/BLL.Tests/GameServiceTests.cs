@@ -30,7 +30,7 @@ namespace BLL.Tests
             var expected = fixture.Build<GameModel>().CreateMany().ToList();
             var games = _mapper.Map<IEnumerable<Game>>(expected);
             _dbMock.Setup(x => x.GameRepository.GetAllWithDetailsAsync(It.IsAny<string>(), It.IsAny<string>()))
-                   .Returns(() => Task.FromResult(games));
+                   .ReturnsAsync(games);
             var userService = new GameService(_dbMock.Object,_mapper);
 
             //act
@@ -52,7 +52,7 @@ namespace BLL.Tests
                                   .CreateMany().ToList();
             var games = _mapper.Map<IEnumerable<Game>>(expected);
             _dbMock.Setup(x => x.GameRepository.GetAllWithDetailsAsync(It.IsAny<string>(), It.IsAny<string>()))
-                   .Returns(() => Task.FromResult(games));
+                   .ReturnsAsync(games);
             var userService = new GameService(_dbMock.Object, _mapper);
 
             //act
@@ -69,7 +69,7 @@ namespace BLL.Tests
             //Arrange
             var gamesEmpty = Enumerable.Empty<Game>();
             _dbMock.Setup(x => x.GameRepository.GetAllAsync())
-                   .Returns(() => Task.FromResult(gamesEmpty));
+                   .ReturnsAsync(gamesEmpty);
             var userService = new GameService(_dbMock.Object, _mapper);
 
             //act
@@ -91,8 +91,8 @@ namespace BLL.Tests
                                   .With(model => model.Id, id)
                                   .Create();
             var game = _mapper.Map<Game>(expected);
-            _dbMock.Setup(x => x.GameRepository.GetByIdAsync(It.IsAny<Guid>()))
-                   .Returns(() => Task.FromResult(game));
+            _dbMock.Setup(x => x.GameRepository.GetByIdWithDetailsAsync(It.IsAny<Guid>()))
+                   .ReturnsAsync(game);
             var userService = new GameService(_dbMock.Object, _mapper);
 
             //act
@@ -109,7 +109,7 @@ namespace BLL.Tests
         {
             //Arrange
             _dbMock.Setup(x => x.GameRepository.GetByIdAsync(It.IsAny<Guid>()))
-                   .Returns(Task.FromResult<Game>(null));
+                   .ReturnsAsync(() => null);
             var userService = new GameService(_dbMock.Object, _mapper);
 
             //act
@@ -175,8 +175,8 @@ namespace BLL.Tests
                                        .Without(x => x.GameGenres)
                                        .Without(x => x.GameImages)
                                        .Create();
-            _dbMock.Setup(x => x.GameRepository.GetByIdWithNoTrack(It.IsAny<Guid>()))
-                   .Returns(Task.FromResult(moqGameFromDb));
+            _dbMock.Setup(x => x.GameRepository.GetByIdWithDetailsWithNoTrack(It.IsAny<Guid>()))
+                   .ReturnsAsync(moqGameFromDb);
             _dbMock.Setup(x => x.GameRepository.Update(It.IsAny<Game>()))
                    .Verifiable();
             _dbMock.Setup(x => x.GameGenreRepository.AddRangeAsync(It.IsAny<IEnumerable<GameGenre>>()));
@@ -208,12 +208,12 @@ namespace BLL.Tests
                                 .Without(x => x.Game)
                                 .Without(x => x.Genre)
                                 .CreateMany<GameGenre>();
-            _dbMock.Setup(x => x.GameRepository.GetByIdWithNoTrack(It.IsAny<Guid>()))
-                   .Returns(Task.FromResult(moqGameFromDb));
+            _dbMock.Setup(x => x.GameRepository.GetByIdWithDetailsWithNoTrack(It.IsAny<Guid>()))
+                   .ReturnsAsync(moqGameFromDb);
             _dbMock.Setup(x => x.GameRepository.Update(It.IsAny<Game>()))
                    .Verifiable();
             _dbMock.Setup(x => x.GameGenreRepository.GetAllAsync())
-                   .Returns(Task.FromResult(moqGameGenres));
+                   .ReturnsAsync(moqGameGenres);
 
             var gameService = new GameService(_dbMock.Object, _mapper);
 
