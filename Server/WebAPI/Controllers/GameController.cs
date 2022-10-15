@@ -59,9 +59,9 @@ namespace WebAPI.Controllers
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult DeleteGame([FromBody] GameModel model)
+        public async Task<IActionResult> DeleteGame([FromBody] GameModel model)
         {
-            _gameService.DeleteAsync(model);
+            await _gameService.DeleteAsync(model);
             return Ok("Deleted successfully");
         }
 
