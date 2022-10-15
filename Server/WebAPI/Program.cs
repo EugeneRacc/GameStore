@@ -27,6 +27,7 @@ builder.Services.AddSingleton(mapper);
 
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IImageService, ImageService>();
 
 var app = builder.Build();
 

@@ -53,8 +53,8 @@ namespace BLL.Services
 
         public async Task UpdateAsync(GameModel model)
         {
-            var updatedGame = GetUpdatedGame(model);
-            _unitOfWork.GameRepository.Update(updatedGame.Result);
+            var updatedGame = await GetUpdatedGame(model);
+            _unitOfWork.GameRepository.Update(updatedGame);
             await UpdateGameGenres(model);
             await _unitOfWork.SaveAsync();
         }

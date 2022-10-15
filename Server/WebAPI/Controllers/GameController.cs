@@ -1,6 +1,9 @@
 ﻿using BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using BLL.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using System.IO;
 
 namespace WebAPI.Controllers
 {
@@ -61,5 +64,7 @@ namespace WebAPI.Controllers
             _gameService.DeleteAsync(model);
             return Ok("Deleted successfully");
         }
+
+       
     }
 }
