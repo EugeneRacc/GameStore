@@ -18,6 +18,8 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("upload")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UploadImage([FromForm] IFormFile image, [FromForm] Guid gameId)
         {
             var createdImage = await _imageService.UploadImageAsync(GetImageModel(image, gameId));
@@ -25,12 +27,18 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetImages([FromQuery] string id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetImagesByGameId([FromQuery] string id)
         {
             var gameImages = await _imageService.GetImagesByGameIdAsync(Guid.Parse(id));
             return Ok(gameImages);
         }
 
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteImage([FromBody] ImageModel model)
         {
             await _imageService.DeleteAsync(model);
