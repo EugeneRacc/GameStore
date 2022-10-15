@@ -17,6 +17,9 @@ namespace BLL.Mapper
 
             CreateMap<GameImage, ImageModel>()
                 .ReverseMap();
+
+            CreateMap<Genre, GenreModel>()
+                .ReverseMap();
         }
     }
 }
