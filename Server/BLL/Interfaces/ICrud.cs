@@ -4,7 +4,7 @@ namespace BLL.Interfaces
 {
     public interface ICrud<TModel> where TModel : class
     {
-        Task<IEnumerable<TModel>> GetAllAsync(string? genreSort, string? nameSort);
+        Task<IEnumerable<TModel>> GetAllAsync();
         Task<TModel> GetByIdAsync(Guid id);
         Task<GameModel> AddAsync(TModel model);
         Task UpdateAsync(TModel model);
