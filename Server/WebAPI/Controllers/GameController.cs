@@ -1,9 +1,6 @@
 ﻿using BLL.Interfaces;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
 using BLL.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI.Controllers
 {
@@ -22,10 +19,9 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetGames()
+        public async Task<IActionResult> GetGames([FromQuery] string? genre, [FromQuery] string? name)
         {
-            IEnumerable<GameModel> resultGames;
-            resultGames = await _gameService.GetAllAsync();
+            var resultGames = await _gameService.GetAllAsync(genre, name);
             return Ok(resultGames);
         }
 
@@ -45,7 +41,7 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> CreateGame([FromBody] GameModel model)
         {
             var newGame = await _gameService.AddAsync(model);
-            return CreatedAtAction(nameof(GetGameById), new {id = model.Id},  model);
+            return CreatedAtAction(nameof(GetGameById), new {id = model.Id},  newGame);
         }
 
         [HttpPut]

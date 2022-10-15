@@ -9,6 +9,8 @@ namespace BLL.Mapper
         public AutoMapperProfile()
         {
             CreateMap<Game, GameModel>()
+                .ForMember(gm => gm.GenreIds, g
+                => g.MapFrom(src => src.GameGenres.Select(x => x.GenreId)))
                 .ReverseMap();
         }
     }

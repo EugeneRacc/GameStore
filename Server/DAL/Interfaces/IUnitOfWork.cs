@@ -6,6 +6,7 @@
         IGameRepository GameRepository { get; }
         IGameImageRepository GameImage { get; }
         IGenreRepository GenreRepository { get; }
+        IGameGenreRepository GameGenreRepository { get; }
         Task SaveAsync();
     }
 }

@@ -34,12 +34,13 @@ namespace WebAPI.Middleware
             {
                 case GameStoreException:
                     code = HttpStatusCode.BadRequest;
-                    message = JsonSerializer.Serialize(exception.Message);
+                    message = exception.Message;
                     break;
                 default:
-                    message = JsonSerializer.Serialize(exception.Message);
+                    message = exception.Message;
                     break;
             }
+            context.Response.StatusCode = (int)code;
 
             return context.Response.WriteAsync(new ErrorDetails
             {
