@@ -36,5 +36,11 @@ namespace BLL.Services
                 throw new GameStoreException("No images with this game id");
             return _mapper.Map<IEnumerable<ImageModel>>(images);
         }
+
+        public async Task DeleteAsync(ImageModel model)
+        {
+            _db.GameImage.Delete(_mapper.Map<GameImage>(model));
+            await _db.SaveAsync();
+        }
     }
 }

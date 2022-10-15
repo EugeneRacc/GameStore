@@ -1,5 +1,6 @@
 ﻿using BLL.Interfaces;
 using BLL.Models;
+using BLL.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -28,6 +29,12 @@ namespace WebAPI.Controllers
         {
             var gameImages = await _imageService.GetImagesByGameIdAsync(Guid.Parse(id));
             return Ok(gameImages);
+        }
+
+        public async Task<IActionResult> DeleteImage([FromBody] ImageModel model)
+        {
+            await _imageService.DeleteAsync(model);
+            return Ok("Deleted successfully");
         }
 
         private static ImageModel GetImageModel(IFormFile image, Guid gameId)

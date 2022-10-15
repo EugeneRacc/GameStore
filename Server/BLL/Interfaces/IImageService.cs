@@ -6,5 +6,6 @@ namespace BLL.Interfaces
     {
         public Task<ImageModel> UploadImageAsync(ImageModel image);
         public Task<IEnumerable<ImageModel>> GetImagesByGameIdAsync(Guid id);
+        public Task DeleteAsync(ImageModel model);
     }
 }
