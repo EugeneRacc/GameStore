@@ -1,8 +1,6 @@
 ﻿using BLL.Interfaces;
 using BLL.Models;
-using BLL.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace WebAPI.Controllers
 {
@@ -28,7 +26,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetImagesByGameId([FromQuery] string id)
         {

@@ -22,13 +22,13 @@ namespace BLL.Services
             return _mapper.Map<IEnumerable<GenreModel>>(genres);
         }
 
-        public async Task<IEnumerable<GenreModel>> GetAllByGameId(Guid gameId)
+        public async Task<IEnumerable<GenreModel>> GetAllByGameIdAsync(Guid gameId)
         {
             var genres = await _db.GenreRepository.GetGenresByGameIdAsync(gameId);
             return _mapper.Map<IEnumerable<GenreModel>>(genres);
         }
 
-        public async Task<GenreModel> GetGenreById(Guid id)
+        public async Task<GenreModel> GetGenreByIdAsync(Guid id)
         {
             var genre = await _db.GenreRepository.GetByIdAsync(id);
             return _mapper.Map<GenreModel>(genre);

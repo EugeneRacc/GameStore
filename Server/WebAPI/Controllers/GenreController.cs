@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
         {
             if (gameId == null)
                 return Ok(await _genreService.GetAllAsync());
-            return Ok(await _genreService.GetAllByGameId(Guid.Parse(gameId)));
+            return Ok(await _genreService.GetAllByGameIdAsync(Guid.Parse(gameId)));
         }
 
         [HttpGet("{id}")]
@@ -31,7 +31,7 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetGenreById(string id)
         {
-            var resultGames = await _genreService.GetGenreById(Guid.Parse(id));
+            var resultGames = await _genreService.GetGenreByIdAsync(Guid.Parse(id));
             return Ok(resultGames);
         }
     }

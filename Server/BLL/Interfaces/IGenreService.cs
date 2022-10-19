@@ -5,7 +5,7 @@ namespace BLL.Interfaces
     public interface IGenreService
     {
         public Task<IEnumerable<GenreModel>> GetAllAsync();
-        public Task<IEnumerable<GenreModel>> GetAllByGameId(Guid gameId);
-        public Task<GenreModel> GetGenreById(Guid id);
+        public Task<IEnumerable<GenreModel>> GetAllByGameIdAsync(Guid gameId);
+        public Task<GenreModel> GetGenreByIdAsync(Guid id);
     }
 }
