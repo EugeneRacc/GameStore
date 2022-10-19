@@ -1,6 +1,9 @@
 ﻿using BLL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using BLL.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using System.IO;
 
 namespace WebAPI.Controllers
 {
@@ -56,10 +59,12 @@ namespace WebAPI.Controllers
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult DeleteGame([FromBody] GameModel model)
+        public async Task<IActionResult> DeleteGame([FromBody] GameModel model)
         {
-            _gameService.DeleteAsync(model);
+            await _gameService.DeleteAsync(model);
             return Ok("Deleted successfully");
         }
+
+       
     }
 }

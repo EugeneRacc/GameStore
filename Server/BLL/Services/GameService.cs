@@ -28,6 +28,16 @@ namespace BLL.Services
             return _mapper.Map<IEnumerable<Game>, IEnumerable<GameModel>>(games);
         }
 
+        public async Task<IEnumerable<GameModel>> GetAllAsync()
+        {
+            var games = await _unitOfWork
+                              .GameRepository
+                              .GetAllWithDetailsAsync("", "");
+            if (games == null || !games.Any())
+                throw new GameStoreException("No games in store");
+            return _mapper.Map<IEnumerable<GameModel>>(games);
+        }
+
         public async Task<GameModel> GetByIdAsync(Guid id)
         {
             var game = await _unitOfWork.GameRepository.GetByIdWithDetailsAsync(id);
@@ -53,8 +63,8 @@ namespace BLL.Services
 
         public async Task UpdateAsync(GameModel model)
         {
-            var updatedGame = GetUpdatedGame(model);
-            _unitOfWork.GameRepository.Update(updatedGame.Result);
+            var updatedGame = await GetUpdatedGame(model);
+            _unitOfWork.GameRepository.Update(updatedGame);
             await UpdateGameGenres(model);
             await _unitOfWork.SaveAsync();
         }

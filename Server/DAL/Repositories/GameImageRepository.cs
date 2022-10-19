@@ -47,6 +47,11 @@ namespace DAL.Repositories
             entityEntry.State = EntityState.Modified;
         }
 
+        public async Task<IEnumerable<GameImage>> GetImagesByGameId(Guid gameId)
+        {
+            return await _db.GameImages.Where(gi => gi.GameId == gameId).ToListAsync();
+        }
+
         public async Task<GameImage> GetByIdWithNoTrack(Guid id)
         {
             return await _db.GameImages.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);

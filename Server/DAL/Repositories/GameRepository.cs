@@ -12,6 +12,7 @@ namespace DAL.Repositories
         public async Task<Game> GetByIdWithDetailsAsync(Guid id)
         {
             return await db.Games
+                            .Include(gi => gi.GameImages)
                             .Include(gg => gg.GameGenres)
                             .ThenInclude(g => g.Genre)
                             .FirstOrDefaultAsync(x => x.Id == id);
@@ -20,6 +21,7 @@ namespace DAL.Repositories
         public async Task<Game> GetByIdWithDetailsWithNoTrack(Guid id)
         {
             return await db.Games.AsNoTracking()
+                            .Include(gi => gi.GameImages)
                             .Include(gg => gg.GameGenres)
                             .ThenInclude(g => g.Genre)
                             .FirstOrDefaultAsync(x => x.Id == id);
@@ -28,6 +30,7 @@ namespace DAL.Repositories
         public async Task<IEnumerable<Game>> GetAllWithDetailsAsync(string genreSort, string nameSort)
         {
             return await db.Games
+                             .Include(gi => gi.GameImages)
                              .Include(gg => gg.GameGenres)
                              .ThenInclude(g => g.Genre)
                              .Where(game => game.Title.Contains(nameSort))
