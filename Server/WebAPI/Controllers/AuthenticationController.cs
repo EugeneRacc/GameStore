@@ -22,5 +22,13 @@ namespace WebAPI.Controllers
             await _authenticationService.RegisterUserAsync(model);
             return Ok("User created");
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginModel model)
+        {
+            if (!ModelState.IsValid) return BadRequest("Please, provide all the required data");
+            var token = await _authenticationService.LoginUserAsync(model);
+            return Ok(token);
+        }
     }
 }
