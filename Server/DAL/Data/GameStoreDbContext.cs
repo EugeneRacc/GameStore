@@ -36,5 +36,6 @@ namespace DAL.Data
         public DbSet<GameGenre> GameGenre { get; set; }
         public DbSet<GameImage> GameImages { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
     }
 }
