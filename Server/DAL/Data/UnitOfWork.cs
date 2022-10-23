@@ -11,9 +11,20 @@ namespace DAL.Data
         private IGameImageRepository _gameImageRepository;
         private IGenreRepository _genreRepository;
         private IGameGenreRepository _gameGenreRepository;
+        private IRefreshTokenRepository _refreshTokenRepository;
         public UnitOfWork(GameStoreDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public IRefreshTokenRepository RefreshTokenRepository
+        {
+            get
+            {
+                if (_refreshTokenRepository == null)
+                    _refreshTokenRepository = new RefreshTokenRepository(_dbContext);
+                return _refreshTokenRepository;
+            }
         }
 
         public ICommentRepository CommentRepository

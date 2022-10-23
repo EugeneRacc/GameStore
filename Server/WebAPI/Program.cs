@@ -22,6 +22,22 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<GameStoreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("GameStore")));
 
+var tokenValidationParameters = new TokenValidationParameters()
+{
+    ValidateIssuerSigningKey = true,
+    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["JWT:Secret"])),
+
+    ValidateIssuer = true,
+    ValidIssuer = configuration["JWT:Issuer"],
+
+    ValidateAudience = true,
+    ValidAudience = configuration["JWT:Audience"],
+
+    ValidateLifetime = true,
+    ClockSkew = TimeSpan.Zero
+};
+builder.Services.AddSingleton(tokenValidationParameters);
+
 builder.Services.AddIdentity<User, IdentityRole>()
        .AddEntityFrameworkStores<GameStoreDbContext>()
        .AddDefaultTokenProviders();
@@ -35,17 +51,7 @@ builder.Services.AddAuthentication(options =>
 {
     options.SaveToken = true;
     options.RequireHttpsMetadata = false;
-    options.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["JWT:Secret"])),
-
-        ValidateIssuer = true,
-        ValidIssuer = configuration["JWT:Issuer"],
-
-        ValidateAudience = true,
-        ValidAudience = configuration["JWT:Audience"]
-    };
+    options.TokenValidationParameters = tokenValidationParameters;
 });
 
 var mapperConfig = new MapperConfiguration(mc =>

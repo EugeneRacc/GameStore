@@ -30,5 +30,13 @@ namespace WebAPI.Controllers
             var token = await _authenticationService.LoginUserAsync(model);
             return Ok(token);
         }
+
+        [HttpPost("refresh")]
+        public async Task<IActionResult> RefreshToken([FromBody] TokenRequestModel model)
+        {
+            if (!ModelState.IsValid) return BadRequest("Please, provide all the required data");
+            var token = await _authenticationService.VerifyAndGenerateTokenAsync(model);
+            return Ok(token);
+        }
     }
 }
