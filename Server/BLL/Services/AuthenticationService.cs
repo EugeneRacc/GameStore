@@ -82,7 +82,6 @@ namespace BLL.Services
                 }
                 return await GenerateJwtToken(dbUser, null);
             }
-            
         }
 
         private async Task<AuthResult> GenerateJwtToken(User userExists, RefreshToken? rToken)
