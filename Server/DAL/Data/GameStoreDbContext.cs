@@ -1,9 +1,10 @@
 ﻿using DAL.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Data
 {
-    public class GameStoreDbContext : DbContext
+    public class GameStoreDbContext : IdentityDbContext<User>
     {
         public GameStoreDbContext(DbContextOptions options) : base(options) { }
 
@@ -27,7 +28,7 @@ namespace DAL.Data
                         .WithOne(mg => mg.MainGenre)
                         .HasForeignKey(fk => fk.ParentId)
                         .Metadata.DeleteBehavior = DeleteBehavior.Restrict;
-
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Comment> Comments { get; set; }
@@ -35,5 +36,6 @@ namespace DAL.Data
         public DbSet<GameGenre> GameGenre { get; set; }
         public DbSet<GameImage> GameImages { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
     }
 }

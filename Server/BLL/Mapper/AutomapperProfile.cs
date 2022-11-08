@@ -20,6 +20,9 @@ namespace BLL.Mapper
 
             CreateMap<Genre, GenreModel>()
                 .ReverseMap();
+
+            CreateMap<RefreshToken, RefreshTokenModel>()
+                .ReverseMap();
         }
     }
 }

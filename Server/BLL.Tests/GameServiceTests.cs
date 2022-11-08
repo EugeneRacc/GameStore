@@ -38,7 +38,8 @@ namespace BLL.Tests
             
             //assert
             actual.Should().BeEquivalentTo(expected, options => 
-                options.Excluding(x => x.GenreIds));
+                options.Excluding(x => x.GenreIds)
+                       .Excluding(x => x.ImageIds));
         }
 
         [Theory]
@@ -60,7 +61,8 @@ namespace BLL.Tests
 
             //assert
             actual.Should().BeEquivalentTo(expected, options =>
-                options.Excluding(x => x.GenreIds));
+                options.Excluding(x => x.GenreIds)
+                       .Excluding(x => x.ImageIds));
         }
 
         [Fact]
@@ -100,7 +102,8 @@ namespace BLL.Tests
 
             //assert
             actual.Should().BeEquivalentTo(expected, options =>
-                options.Excluding(x => x.GenreIds));
+                options.Excluding(x => x.GenreIds)
+                       .Excluding(x => x.ImageIds));
             actual.Id.Should().Be(expected.Id);
         }
 

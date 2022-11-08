@@ -1,22 +1,58 @@
+using System.Text;
 using AutoMapper;
 using BLL.Interfaces;
 using BLL.Mapper;
 using BLL.Services;
 using DAL;
 using DAL.Data;
+using DAL.Entities;
 using DAL.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using WebAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var configuration = builder.Configuration;
 // Add services to the container.
 
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<GameStoreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("GameStore")));
+
+var tokenValidationParameters = new TokenValidationParameters()
+{
+    ValidateIssuerSigningKey = true,
+    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["JWT:Secret"])),
+
+    ValidateIssuer = true,
+    ValidIssuer = configuration["JWT:Issuer"],
+
+    ValidateAudience = true,
+    ValidAudience = configuration["JWT:Audience"],
+
+    ValidateLifetime = true,
+    ClockSkew = TimeSpan.Zero
+};
+builder.Services.AddSingleton(tokenValidationParameters);
+
+builder.Services.AddIdentity<User, IdentityRole>()
+       .AddEntityFrameworkStores<GameStoreDbContext>()
+       .AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.SaveToken = true;
+    options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters = tokenValidationParameters;
+});
 
 var mapperConfig = new MapperConfiguration(mc =>
 {
@@ -29,6 +65,7 @@ builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
 var app = builder.Build();
 
@@ -38,6 +75,8 @@ InitializeDatabase(app);
 app.UseCustomExceptionHandler();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

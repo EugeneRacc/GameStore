@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Net;
+using System.Security.Authentication;
 using System.Text.Json;
 using BLL.Exceptions;
 using BLL.Models;
@@ -34,6 +35,10 @@ namespace WebAPI.Middleware
             {
                 case GameStoreException:
                     code = HttpStatusCode.BadRequest;
+                    message = exception.Message;
+                    break;
+                case AuthenticationException:
+                    code = HttpStatusCode.Unauthorized;
                     message = exception.Message;
                     break;
                 default:
