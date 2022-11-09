@@ -1,0 +1,28 @@
+.filter {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(30, 30, 30);
+  width: 80%;
+  color: white;
+  margin: 0 auto;
+  padding: 15px 3%;
+}
+
+.filter__search {
+  background-color: rgb(54, 53, 53);
+}
+
+img {
+  filter: invert(100%);
+}
+
+.filter__icon {
+  height: 20px;
+}
+
+input {
+  background-color: rgb(54, 53, 53);
+  height: 20px;
+  background-repeat: no-repeat;
+  background-position: 5px;
+}
