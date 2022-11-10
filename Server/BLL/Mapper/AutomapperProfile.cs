@@ -23,6 +23,9 @@ namespace BLL.Mapper
 
             CreateMap<RefreshToken, RefreshTokenModel>()
                 .ReverseMap();
+
+            CreateMap<OrderDetails, OrderModel>()
+                .ReverseMap();
         }
     }
 }
