@@ -8,5 +8,6 @@
         public ICollection<GameGenre> GameGenres { get; set; }
         public ICollection<Comment> Comments { get; set; }
         public ICollection<GameImage> GameImages { get; set; }
+        public ICollection<GameOrderDetails> GameOrderDetails { get; set; }
     }
 }
