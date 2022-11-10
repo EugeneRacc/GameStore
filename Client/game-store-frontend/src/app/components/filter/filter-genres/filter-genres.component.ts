@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {IGenre} from "../../../models/genre.model";
+import {GenreService} from "../../../services/genre.service";
 
 @Component({
   selector: 'app-filter-genres',
@@ -7,20 +8,15 @@ import {IGenre} from "../../../models/genre.model";
   styleUrls: ['./filter-genres.component.css']
 })
 export class FilterGenresComponent implements OnInit {
-  genres: IGenre[] = [
-    {id: "1", name: "RPG"},
-    {id: "2", name: "Strategy"},
-    {id: "3", name: "Action"},
-    {id: "4", name: "RPG1"},
-    {id: "5", name: "RPG1"},
-    {id: "6", name: "RPG1"},
-    {id: "7", name: "RPG1"},
+  genres: IGenre[] = [];
 
-  ]
-
-  constructor() { }
+  constructor(private genreService: GenreService) { }
 
   ngOnInit(): void {
+    this.genreService.getGenres().subscribe(
+      genres => {
+        this.genres = genres
+      })
   }
 
 }

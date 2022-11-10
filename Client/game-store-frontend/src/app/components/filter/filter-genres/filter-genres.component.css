@@ -1,4 +1,4 @@
-.genres {
+/*.genres {
   overflow-y: auto;
   background-color: rgb(216, 216, 216);
   position: absolute;
@@ -10,5 +10,14 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+}*/
+.genres {
+  background-color: rgb(216, 216, 216);
+  position: absolute;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 10px;
+  max-width: 25%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
-
