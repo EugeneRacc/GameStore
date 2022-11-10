@@ -1,6 +1,7 @@
 ﻿using DAL.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace DAL.Data
 {
@@ -21,7 +22,7 @@ namespace DAL.Data
                         .HasMany(rc => rc.Replies)
                         .WithOne(pc => pc.ParentComment)
                         .HasForeignKey(pc => pc.ReplieId)
-                        .Metadata.DeleteBehavior = DeleteBehavior.Restrict;
+                        .Metadata.DeleteBehavior = DeleteBehavior.ClientSetNull;
 
             modelBuilder.Entity<Genre>()
                         .HasMany(g => g.SubGenres)
@@ -35,6 +36,7 @@ namespace DAL.Data
                         .HasMaxLength(600);
 
             modelBuilder.Entity<Comment>();
+
         }
 
         public DbSet<Comment> Comments { get; set; }

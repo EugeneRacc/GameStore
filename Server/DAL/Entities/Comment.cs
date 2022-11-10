@@ -2,7 +2,6 @@
 {
     public class Comment : BaseEntity
     {
-        public string Title { get; set; }
         public string Body { get; set; }
         public DateTime Created { get; set; }
         public Guid? ReplieId { get; set; }

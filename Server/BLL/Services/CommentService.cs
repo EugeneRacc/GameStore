@@ -38,6 +38,7 @@ namespace BLL.Services
         public async Task<CommentModel> AddAsync(CommentModel model)
         {
             model.Id = Guid.NewGuid();
+            model.CreatedDate = DateTime.Now;
             await _unitOfWork.CommentRepository.AddAsync(_mapper.Map<Comment>(model));
             await _unitOfWork.SaveAsync();
             return model;
