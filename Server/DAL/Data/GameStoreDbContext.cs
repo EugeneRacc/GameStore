@@ -29,6 +29,12 @@ namespace DAL.Data
                         .HasForeignKey(fk => fk.ParentId)
                         .Metadata.DeleteBehavior = DeleteBehavior.Restrict;
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Comment>()
+                        .Property(c => c.Body)
+                        .HasMaxLength(600);
+
+            modelBuilder.Entity<Comment>();
         }
 
         public DbSet<Comment> Comments { get; set; }
