@@ -4,6 +4,7 @@ using DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(GameStoreDbContext))]
-    partial class GameStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221110141723_AddOrders")]
+    partial class AddOrders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,29 +32,27 @@ namespace DAL.Migrations
 
                     b.Property<string>("Body")
                         .IsRequired()
-                        .HasMaxLength(600)
-                        .HasColumnType("nvarchar(600)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("GameId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("GameId")
+                    b.Property<Guid>("GameId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("ReplieId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GameId");
+                    b.HasIndex("GameId1");
 
                     b.HasIndex("ReplieId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
@@ -429,25 +429,18 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.Entities.Game", "Game")
                         .WithMany("Comments")
-                        .HasForeignKey("GameId")
+                        .HasForeignKey("GameId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DAL.Entities.Comment", "ParentComment")
                         .WithMany("Replies")
-                        .HasForeignKey("ReplieId");
-
-                    b.HasOne("DAL.Entities.User", "User")
-                        .WithMany("Comments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ReplieId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Game");
 
                     b.Navigation("ParentComment");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DAL.Entities.GameGenre", b =>
@@ -605,9 +598,14 @@ namespace DAL.Migrations
                     b.Navigation("SubGenres");
                 });
 
+            modelBuilder.Entity("DAL.Entities.OrderDetails", b =>
+                {
+                    b.Navigation("GameOrderDetails");
+                });
+
             modelBuilder.Entity("DAL.Entities.User", b =>
                 {
-                    b.Navigation("Comments");
+                    b.Navigation("OrderDetails");
                 });
 #pragma warning restore 612, 618
         }

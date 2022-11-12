@@ -29,6 +29,9 @@ namespace BLL.Mapper
                     c.MapFrom(src => src.Created))
                 .ForMember(cm => cm.ReplyId, c =>
                     c.MapFrom(src => src.ReplieId))
+                    .ReverseMap();
+                    
+            CreateMap<OrderDetails, OrderModel>()
                 .ReverseMap();
         }
     }

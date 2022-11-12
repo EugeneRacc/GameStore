@@ -18,6 +18,13 @@ namespace DAL.Data
                             x.GenreId
                         });
 
+            modelBuilder.Entity<GameOrderDetails>()
+                .HasKey(x => new
+                {
+                    x.GameId,
+                    x.OrderDetailsId
+                });
+            
             modelBuilder.Entity<Comment>()
                         .HasMany(rc => rc.Replies)
                         .WithOne(pc => pc.ParentComment)
@@ -29,6 +36,9 @@ namespace DAL.Data
                         .WithOne(mg => mg.MainGenre)
                         .HasForeignKey(fk => fk.ParentId)
                         .Metadata.DeleteBehavior = DeleteBehavior.Restrict;
+            modelBuilder.Entity<OrderDetails>()
+                .Property(od => od.Comment)
+                .HasMaxLength(600);
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Comment>()
@@ -45,5 +55,7 @@ namespace DAL.Data
         public DbSet<GameImage> GameImages { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
+        public DbSet<GameOrderDetails> GameOrderDetails { get; set; }
     }
 }

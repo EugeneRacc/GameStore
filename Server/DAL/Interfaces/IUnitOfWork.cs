@@ -8,6 +8,8 @@
         IGenreRepository GenreRepository { get; }
         IGameGenreRepository GameGenreRepository { get; }
         IRefreshTokenRepository RefreshTokenRepository { get; }
+        IOrderDetailsRepository OrderDetailsRepository { get; }
+        IGameOrderDetails GameOrderDetails { get; }
         Task SaveAsync();
     }
 }
