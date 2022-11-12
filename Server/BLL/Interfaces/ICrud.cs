@@ -6,8 +6,8 @@ namespace BLL.Interfaces
     {
         Task<IEnumerable<TModel>> GetAllAsync();
         Task<TModel> GetByIdAsync(Guid id);
-        Task<GameModel> AddAsync(TModel model);
-        Task UpdateAsync(TModel model);
+        Task<TModel> AddAsync(TModel model);
+        Task<TModel> UpdateAsync(TModel model);
         Task DeleteAsync(TModel model);
     }
 }
