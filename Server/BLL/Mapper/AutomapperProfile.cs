@@ -23,6 +23,13 @@ namespace BLL.Mapper
 
             CreateMap<RefreshToken, RefreshTokenModel>()
                 .ReverseMap();
+
+            CreateMap<Comment, CommentModel>()
+                .ForMember(cm => cm.CreatedDate, c => 
+                    c.MapFrom(src => src.Created))
+                .ForMember(cm => cm.ReplyId, c =>
+                    c.MapFrom(src => src.ReplieId))
+                .ReverseMap();
         }
     }
 }
