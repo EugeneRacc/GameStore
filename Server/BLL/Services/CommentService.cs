@@ -23,7 +23,7 @@ namespace BLL.Services
         {
             var comments = await _unitOfWork.CommentRepository.GetAllAsync();
             if (comments == null)
-                throw new GameStoreException("Games not found");
+                throw new GameStoreException("Comments not found");
             return _mapper.Map<IEnumerable<CommentModel>>(comments);
         }
 
@@ -31,7 +31,7 @@ namespace BLL.Services
         {
             var comment = await _unitOfWork.CommentRepository.GetByIdAsync(id);
             if (comment == null)
-                throw new GameStoreException("Games not found");
+                throw new GameStoreException($"No Comment with such id: {id}");
             return _mapper.Map<CommentModel>(comment);
         }
 
@@ -44,14 +44,15 @@ namespace BLL.Services
             return model;
         }
 
-        public async Task UpdateAsync(CommentModel model)
+        public async Task<CommentModel> UpdateAsync(CommentModel model)
         {
             var comment = await _unitOfWork.CommentRepository.GetByIdAsync(model.Id ?? Guid.Empty);
             if (comment == null)
-                throw new GameStoreException("No such comment");
+                throw new GameStoreException($"No comment with such id: {model.Id}");
             comment.Body = model.Body;
             _unitOfWork.CommentRepository.Update(comment);
             await _unitOfWork.SaveAsync();
+            return _mapper.Map<CommentModel>(comment);
         }
 
         public async Task DeleteAsync(CommentModel model)

@@ -53,8 +53,8 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateGame([FromBody] GameModel model)
         {
-            await _gameService.UpdateAsync(model);
-            return Ok("Updated successfully");
+            var updatedGame = await _gameService.UpdateAsync(model);
+            return Ok(updatedGame);
         }
 
         [HttpDelete]

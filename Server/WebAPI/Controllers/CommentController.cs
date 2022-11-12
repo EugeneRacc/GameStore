@@ -47,8 +47,8 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> UpdateComment([FromBody] CommentModel model, [FromRoute] Guid id)
         {
             model.GameId = id;
-            await _commentService.UpdateAsync(model);
-            return Ok("Successfully added");
+            var updatedComment = await _commentService.UpdateAsync(model);
+            return Ok(updatedComment);
         }
 
         [HttpDelete]
