@@ -15,14 +15,17 @@ using WebAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
+var connectionString = OperatingSystem.IsMacOS()
+    ? builder.Configuration.GetConnectionString("GameStoreMacOs")
+    : builder.Configuration.GetConnectionString("GameStoreWindows");
 // Add services to the container.
 
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<GameStoreDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("GameStore")));
+        options.UseSqlServer(connectionString));
 
-var tokenValidationParameters = new TokenValidationParameters()
+    var tokenValidationParameters = new TokenValidationParameters()
 {
     ValidateIssuerSigningKey = true,
     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["JWT:Secret"])),
