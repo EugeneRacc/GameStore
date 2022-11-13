@@ -14,8 +14,10 @@ namespace DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserPhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PaymentType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PaymentType = table.Column<int>(type: "int", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(600)", maxLength: 600, nullable: false)

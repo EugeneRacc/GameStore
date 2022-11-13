@@ -163,12 +163,19 @@ namespace DAL.Migrations
                         .HasMaxLength(600)
                         .HasColumnType("nvarchar(600)");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("PaymentType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PaymentType")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -605,9 +612,16 @@ namespace DAL.Migrations
                     b.Navigation("SubGenres");
                 });
 
+            modelBuilder.Entity("DAL.Entities.OrderDetails", b =>
+                {
+                    b.Navigation("GameOrderDetails");
+                });
+
             modelBuilder.Entity("DAL.Entities.User", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("OrderDetails");
                 });
 #pragma warning restore 612, 618
         }
