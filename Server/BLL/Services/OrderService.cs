@@ -21,13 +21,26 @@ public class OrderService : IOrderService
         _unitOfWork = unitOfWork;
     }
 
-    //TODO Not forget to implement add logic
-    public async Task<OrderModel> AddOrder(OrderModel model)
+    public async Task<IEnumerable<OrderDetailsModel>> GetAllOrdersByUserIdAsync(Guid userId)
+    {
+        var orders = (await _unitOfWork.OrderDetailsRepository.GetOrdersByUserId(userId)).ToList();
+        return _mapper.Map<IEnumerable<OrderDetailsModel>>(orders);
+    }
+
+    public async Task<OrderDetailsModel> AddOrderAsync(OrderDetailsModel model)
     {
         var user = await _userManager.FindByIdAsync(model.UserId);
         if (user == null || user.FirstName != model.FirstName
                          || user.LastName != model.LastName)
             throw new GameStoreException("User not found or information is invalid");
+        model.Id = Guid.NewGuid();
+        model.OrderDate = DateTime.Now;
+        foreach (var game in model.OrderedGames)
+        {
+            game.OrderDetailsId = model.Id;
+        }
+        await _unitOfWork.OrderDetailsRepository.AddAsync(_mapper.Map<OrderDetails>(model));
+        await _unitOfWork.SaveAsync();
         return model;
     }
 }

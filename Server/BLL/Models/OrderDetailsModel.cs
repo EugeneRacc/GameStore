@@ -1,8 +1,8 @@
-using BLL.Enum;
+using DAL.Enums;
 
 namespace BLL.Models;
 
-public class OrderModel
+public class OrderDetailsModel
 {
     public Guid? Id { get; set; }
     public string FirstName { get; set; }
@@ -13,4 +13,5 @@ public class OrderModel
     public DateTime? OrderDate { get; set; } 
     public string UserId { get; set; }
     public string? Comment { get; set; }
+    public ICollection<GameOrderDetailsModel> OrderedGames { get; set; }
 }

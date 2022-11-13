@@ -31,7 +31,14 @@ namespace BLL.Mapper
                     c.MapFrom(src => src.ReplieId))
                     .ReverseMap();
                     
-            CreateMap<OrderDetails, OrderModel>()
+            CreateMap<OrderDetails, OrderDetailsModel>()
+                .ForMember(odm => odm.Phone, 
+                    od => od.MapFrom(src => src.UserPhone))
+                .ForMember(odm => odm.OrderedGames, 
+                    god => god.MapFrom(src => src.GameOrderDetails))
+                .ReverseMap();
+
+            CreateMap<GameOrderDetails, GameOrderDetailsModel>()
                 .ReverseMap();
         }
     }

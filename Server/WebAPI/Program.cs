@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using AutoMapper;
 using BLL.Interfaces;
 using BLL.Mapper;
@@ -20,7 +21,10 @@ var connectionString = OperatingSystem.IsMacOS()
     : builder.Configuration.GetConnectionString("GameStoreWindows");
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+{
+    x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 
 builder.Services.AddDbContext<GameStoreDbContext>(options =>
         options.UseSqlServer(connectionString));
@@ -70,6 +74,7 @@ builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();
 
