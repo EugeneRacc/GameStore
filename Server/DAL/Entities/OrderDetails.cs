@@ -5,6 +5,7 @@ public class OrderDetails : BaseEntity
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
+    public string Email { get; set; }
     public string UserPhone { get; set; }
     public PaymentType PaymentType { get; set; }
     public DateTime OrderDate { get; set; } 
