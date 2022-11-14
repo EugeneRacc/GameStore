@@ -70,6 +70,27 @@ builder.Services.AddSwaggerGen(options =>
         Title = "GameStore API",
         Description = "API for GameStore"
     });
+    options.AddSecurityDefinition("bearer", new OpenApiSecurityScheme
+    {
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Scheme = "bearer"
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "bearer"
+                }
+            },
+            new List<string>()
+        }
+    });
 });
 
 var mapperConfig = new MapperConfiguration(mc =>
