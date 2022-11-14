@@ -40,6 +40,11 @@ namespace BLL.Mapper
 
             CreateMap<GameOrderDetails, GameOrderDetailsModel>()
                 .ReverseMap();
+
+            CreateMap<UserModel, User>()
+                .ForMember(um => um.Id, u
+                    => u.MapFrom(src => src.Id.ToString()))
+                .ReverseMap();
         }
     }
 }

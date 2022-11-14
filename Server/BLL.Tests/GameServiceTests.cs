@@ -177,6 +177,7 @@ namespace BLL.Tests
                                        .Without(x => x.Comments)
                                        .Without(x => x.GameGenres)
                                        .Without(x => x.GameImages)
+                                       .Without(x => x.GameOrderDetails)
                                        .Create();
             _dbMock.Setup(x => x.GameRepository.GetByIdWithDetailsWithNoTrack(It.IsAny<Guid>()))
                    .ReturnsAsync(moqGameFromDb);
@@ -205,6 +206,7 @@ namespace BLL.Tests
                                        .Without(x => x.Comments)
                                        .Without(x => x.GameGenres)
                                        .Without(x => x.GameImages)
+                                       .Without(x => x.GameOrderDetails)
                                        .Create();
             var moqGameGenres = fixture
                                 .Build<GameGenre>()
