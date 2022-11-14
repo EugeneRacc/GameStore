@@ -29,10 +29,6 @@ public class OrderService : IOrderService
 
     public async Task<OrderDetailsModel> AddOrderAsync(OrderDetailsModel model)
     {
-        var user = await _userManager.FindByIdAsync(model.UserId);
-        if (user == null || user.FirstName != model.FirstName
-                         || user.LastName != model.LastName)
-            throw new GameStoreException("User not found or information is invalid");
         model.Id = Guid.NewGuid();
         model.OrderDate = DateTime.Now;
         foreach (var game in model.OrderedGames)
