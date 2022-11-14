@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using WebAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -61,6 +62,16 @@ builder.Services.AddAuthentication(options =>
     options.TokenValidationParameters = tokenValidationParameters;
 });
 
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo()
+    {
+        Version = "V1",
+        Title = "GameStore API",
+        Description = "API for GameStore"
+    });
+});
+
 var mapperConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new AutoMapperProfile());
@@ -82,6 +93,14 @@ var app = builder.Build();
 InitializeDatabase(app);
 
 app.UseCustomExceptionHandler();
+
+app.UseSwagger();
+
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "GameStore API V");
+    options.RoutePrefix = "swagger";
+});
 
 app.UseHttpsRedirection();
 
