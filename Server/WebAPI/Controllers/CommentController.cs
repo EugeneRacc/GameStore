@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetGames([FromRoute] Guid id)
+        public async Task<IActionResult> GetGameComments([FromRoute] Guid id)
         {
             var resultComment = await _commentService.GetGameComments(id);
             return Ok(resultComment);
@@ -52,6 +52,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Manager")]
         [Route("{id:Guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

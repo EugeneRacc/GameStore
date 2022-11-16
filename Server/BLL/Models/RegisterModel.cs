@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DAL.Enums;
 
 namespace BLL.Models
 {
@@ -12,5 +13,6 @@ namespace BLL.Models
         public string UserName { get; set; }
         [Required]
         public string Password { get; set; }
+        public RoleType? Role { get; set; } 
     }
 }

@@ -1,6 +1,7 @@
 using DAL.Data;
 using DAL.Entities;
 using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories;
 
@@ -12,24 +13,24 @@ public class GameOrderDetailsRepository : IGameOrderDetails
     {
         _dbContext = dbContext;
     }
-    
-    public Task<IEnumerable<GameGenre>> GetAllAsync()
+
+    public async Task<IEnumerable<GameOrderDetails>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _dbContext.GameOrderDetails.ToListAsync();
     }
 
-    public Task AddAsync(GameGenre entity)
+    public async Task AddAsync(GameOrderDetails entity)
     {
-        throw new NotImplementedException();
+        await _dbContext.GameOrderDetails.AddAsync(entity);
     }
 
-    public Task AddRangeAsync(IEnumerable<GameGenre> entities)
+    public async Task AddRangeAsync(IEnumerable<GameOrderDetails> entities)
     {
-        throw new NotImplementedException();
+        await _dbContext.GameOrderDetails.AddRangeAsync(entities);
     }
 
-    public void Delete(GameGenre entity)
+    public void Delete(GameOrderDetails entity)
     {
-        throw new NotImplementedException();
+        _dbContext.GameOrderDetails.Remove(entity);
     }
 }

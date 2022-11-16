@@ -7,6 +7,7 @@ using BLL.Exceptions;
 using BLL.Interfaces;
 using BLL.Models;
 using DAL.Entities;
+using DAL.Enums;
 using DAL.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -48,7 +49,28 @@ namespace BLL.Services
                 SecurityStamp = Guid.NewGuid().ToString()
             };
             var result = await _userManager.CreateAsync(newUser, registerModel.Password);
-            if (!result.Succeeded) throw new GameStoreException("Something went wrong");
+            if (!result.Succeeded)
+            {
+                var messageForExc = new StringBuilder("");
+                foreach (var identityError in result.Errors)
+                {
+                    messageForExc.Append($"{identityError.Code} - {identityError.Description}");
+                    messageForExc.Append("\n");
+                }
+                throw new GameStoreException(messageForExc.ToString());
+            }
+            switch (registerModel.Role)
+            {
+                case RoleType.Admin:
+                    await _userManager.AddToRoleAsync(newUser, "Admin");
+                    break;
+                case RoleType.Manager:
+                    await _userManager.AddToRoleAsync(newUser, "Manager");
+                    break;
+                default:
+                    await _userManager.AddToRoleAsync(newUser, "User");
+                    break;
+            }
         }
 
         public async Task<AuthResult> LoginUserAsync(LoginModel loginModel)
@@ -92,8 +114,13 @@ namespace BLL.Services
                 new Claim(ClaimTypes.NameIdentifier, userExists.Id),
                 new Claim(JwtRegisteredClaimNames.Email, userExists.Email),
                 new Claim(JwtRegisteredClaimNames.Sub, userExists.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
+            var userRoles = await _userManager.GetRolesAsync(userExists);
+            foreach (var role in userRoles)
+            {
+                authClaims.Add(new Claim(ClaimTypes.Role, role));
+            }
             var authSignKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
             var token = new JwtSecurityToken(issuer: _configuration["JWT:Issuer"],
                 audience: _configuration["JWT:Audience"],
