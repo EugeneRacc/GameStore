@@ -49,7 +49,16 @@ namespace BLL.Services
                 SecurityStamp = Guid.NewGuid().ToString()
             };
             var result = await _userManager.CreateAsync(newUser, registerModel.Password);
-            if (!result.Succeeded) throw new GameStoreException("Something went wrong");
+            if (!result.Succeeded)
+            {
+                var messageForExc = new StringBuilder("");
+                foreach (var identityError in result.Errors)
+                {
+                    messageForExc.Append($"{identityError.Code} - {identityError.Description}");
+                    messageForExc.Append("\n");
+                }
+                throw new GameStoreException(messageForExc.ToString());
+            }
             switch (registerModel.Role)
             {
                 case RoleType.Admin:
