@@ -1,0 +1,24 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  margin: 1em 2em 2em 2em;
+  padding-bottom: 1em;
+  align-items: center;
+}
+
+.footer__logo {
+  display: flex;
+  justify-content: start;
+}
+
+.footer__logo img {
+  height: 25px;
+  display: inline-block;
+  filter: invert(100%);
+}
+
+.footer__logo p {
+  align-self: center;
+}
+
+

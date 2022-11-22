@@ -18,12 +18,12 @@ export class GameListComponent implements OnInit {
     this.genreService.selectedGenresChanged.subscribe(
       (genres: IGenre[]) => {
         this.genres = genres
-        this.gameService.getGames(this.genres).subscribe( (games: IGame[]) =>
+        this.gameService.getGames().subscribe( (games: IGame[]) =>
           this.games = games
         )
       }
     );
-    this.gameService.getGames(this.genres).subscribe(
+    this.gameService.getGames().subscribe(
       (games) => {
         console.log(games)
         this.games = games

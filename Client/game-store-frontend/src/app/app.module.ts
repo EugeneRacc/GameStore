@@ -10,6 +10,7 @@ import { GenreComponent } from './components/filter/filter-genres/genre/genre.co
 import {HttpClientModule} from "@angular/common/http";
 import { GameListComponent } from './components/game/game-list/game-list.component';
 import {GameComponent} from "./components/game/game-list/game/game.component";
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {GameComponent} from "./components/game/game-list/game/game.component";
     FilterGenresComponent,
     GenreComponent,
     GameListComponent,
-    GameComponent
+    GameComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
