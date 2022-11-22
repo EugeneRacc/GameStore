@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {IGenre} from "../../../../models/genre.model";
+import {GenreService} from "../../../../services/genre.service";
 
 @Component({
   selector: 'app-genre',
@@ -9,9 +10,12 @@ import {IGenre} from "../../../../models/genre.model";
 export class GenreComponent implements OnInit {
   @Input() genre: IGenre;
 
-  constructor() { }
+  constructor(private genreService: GenreService) { }
 
   ngOnInit(): void {
   }
 
+  onAddGenreToFilter(){
+    this.genreService.addNewGenreToFilter(this.genre);
+  }
 }

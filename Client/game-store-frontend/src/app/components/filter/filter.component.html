@@ -1,6 +1,6 @@
 <div class="filter">
-  <div class="filter__genre">+ Add genre
-    <app-filter-genres></app-filter-genres>
+  <div class="filter__genre" (click)="onOpenClick()">+ Add genre
+      <app-filter-genres *ngIf="isOpen"></app-filter-genres>
   </div>
   <div class="filter__search">
     <img src="assets/icons/search.svg" alt="search" class="filter__icon">

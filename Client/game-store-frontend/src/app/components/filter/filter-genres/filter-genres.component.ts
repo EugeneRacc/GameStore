@@ -9,7 +9,6 @@ import {GenreService} from "../../../services/genre.service";
 })
 export class FilterGenresComponent implements OnInit {
   genres: IGenre[] = [];
-
   constructor(private genreService: GenreService) { }
 
   ngOnInit(): void {

@@ -2,9 +2,7 @@
   display: flex;
   justify-content: space-between;
   background-color: rgb(30, 30, 30);
-  width: 80%;
   color: white;
-  margin: 0 auto;
   padding: 15px 3%;
 }
 
@@ -25,4 +23,17 @@ input {
   height: 20px;
   background-repeat: no-repeat;
   background-position: 5px;
+}
+
+.filter__genre {
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.filter__genre:hover {
+  background-color: #36454F;
+}
+
+.displayGenres {
+  display: grid;
 }

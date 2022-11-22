@@ -73,3 +73,9 @@ h6 {
   font-size: inherit;
   font-weight: 400;
 }
+
+body{
+  color: white;
+  width: 80%;
+  margin: 0 auto;
+}

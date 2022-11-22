@@ -1,0 +1,9 @@
+<div class="games">
+  <div class="games__item" *ngFor="let game of games;let indexOfElement = index"
+       [ngClass]="{'games__bigger': onCheckImageWithBiggerWidth(indexOfElement)}">
+    <app-game [game]="game"
+              [index]="indexOfElement"
+              [largeImage]="onCheckImageWithBiggerWidth(indexOfElement)">
+    </app-game>
+  </div>
+</div>
