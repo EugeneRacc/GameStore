@@ -11,6 +11,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { GameListComponent } from './components/game/game-list/game-list.component';
 import {GameComponent} from "./components/game/game-list/game/game.component";
 import { FooterComponent } from './components/footer/footer.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FooterComponent } from './components/footer/footer.component';
     GenreComponent,
     GameListComponent,
     GameComponent,
-    FooterComponent
+    FooterComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,

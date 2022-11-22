@@ -1,12 +1,11 @@
 <header>
-  <div class="logo">
+  <div class="logo" (click)="onNavigateToMain()">
     <img src="assets/icons/star.svg" alt="logo"/>
     <p>Game Store</p>
   </div>
   <nav>
   <ul class="nav__links">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Games</a></li>
+    <li><a routerLink="/">Games</a></li>
     <li><a href="#">Community</a></li>
     <li><a href="#">About</a></li>
     <li><a href="#">Support</a></li>
