@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {IGame} from "../models/game.model";
@@ -9,18 +9,32 @@ import {IGenre} from "../models/genre.model";
   providedIn: 'root'
 })
 export class GameService {
+  selectedNamesChanged = new EventEmitter<string>();
 
   constructor(private http: HttpClient, private genreService: GenreService) {
   }
 
-  getGames(): Observable<IGame[]> {
+  getGames(gameName?: string): Observable<IGame[]> {
     let checkedGenres: IGenre[] = this.genreService.getSelectedGenres();
     if (checkedGenres.length > 0) {
       return this.http.get<IGame[]>(
         `https://localhost:7043/api/game?genre=${checkedGenres[0].title}`);
-    } else {
+    }
+    if (gameName) {
+      return this.http.get<IGame[]>(
+        `https://localhost:7043/api/game?name=${gameName}`);
+    }
+    if (gameName && checkedGenres.length > 0) {
+      return this.http.get<IGame[]>(
+        `https://localhost:7043/api/game?genre=${checkedGenres[0].title}&name=${gameName}`);
+    }
+    else {
       return this.http.get<IGame[]>(
         `https://localhost:7043/api/game`);
     }
+  }
+
+  nameFilteringChanged(gameName: string) {
+    this.selectedNamesChanged.emit(gameName);
   }
 }

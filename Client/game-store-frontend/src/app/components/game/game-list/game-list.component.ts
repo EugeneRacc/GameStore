@@ -12,6 +12,7 @@ import {IGenre} from "../../../models/genre.model";
 export class GameListComponent implements OnInit {
   games: IGame[] = [];
   genres: IGenre[] = [];
+  nameFiltering: string;
   constructor(private gameService: GameService, private genreService: GenreService) { }
 
   ngOnInit(): void {
@@ -23,9 +24,18 @@ export class GameListComponent implements OnInit {
         )
       }
     );
+    this.gameService.selectedNamesChanged.subscribe(
+      name => {
+        this.nameFiltering = name
+        this.gameService.getGames(this.nameFiltering).subscribe(
+          (games) => {
+            this.games = games
+          });
+        console.log("Name filtering is " + this.nameFiltering)
+      }
+    );
     this.gameService.getGames().subscribe(
       (games) => {
-        console.log(games)
         this.games = games
         this.games.push(...games)
         this.games.push(...games)
