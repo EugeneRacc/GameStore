@@ -1,6 +1,7 @@
 <div class="game"
      [ngStyle]="{ 'background-image': 'url(' + objectURL + ')'}"
-     [ngClass]="{'game__large': largeImage}">
+     [ngClass]="{'game__large': largeImage}"
+     (click)="onOpenDetails()">
   <div class="game__details"
        [ngClass]="{'details__large': largeImage}">
     <!--<img [src]="urlS" alt="game logo">-->
@@ -17,4 +18,5 @@
     </div>
     <p class="game__title">{{ game.title }}</p>
   </div>
+
 </div>

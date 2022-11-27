@@ -12,6 +12,7 @@ import { GameListComponent } from './components/game/game-list/game-list.compone
 import {GameComponent} from "./components/game/game-list/game/game.component";
 import { FooterComponent } from './components/footer/footer.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
+import { GameDetailsComponent } from './components/game-details/game-details.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MainPageComponent } from './components/main-page/main-page.component';
     GameListComponent,
     GameComponent,
     FooterComponent,
-    MainPageComponent
+    MainPageComponent,
+    GameDetailsComponent
   ],
   imports: [
     BrowserModule,

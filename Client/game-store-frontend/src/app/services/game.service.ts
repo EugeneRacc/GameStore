@@ -37,4 +37,8 @@ export class GameService {
   nameFilteringChanged(gameName: string) {
     this.selectedNamesChanged.emit(gameName);
   }
+
+  getGameById(id: string): Observable<IGame> {
+    return this.http.get<IGame>(`https://localhost:7043/api/game/${id}`)
+  }
 }
