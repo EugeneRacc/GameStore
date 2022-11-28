@@ -1,5 +1,4 @@
-﻿using DAL.Entities;
-using DAL.Interfaces;
+﻿using DAL.Interfaces;
 using DAL.Repositories;
 
 namespace DAL.Data
@@ -12,41 +11,9 @@ namespace DAL.Data
         private IGameImageRepository _gameImageRepository;
         private IGenreRepository _genreRepository;
         private IGameGenreRepository _gameGenreRepository;
-        private IRefreshTokenRepository _refreshTokenRepository;
-        private IOrderDetailsRepository _orderDetailsRepository;
-        private IGameOrderDetails _gameOrderDetailsRepository;
         public UnitOfWork(GameStoreDbContext dbContext)
         {
             _dbContext = dbContext;
-        }
-
-        public IOrderDetailsRepository OrderDetailsRepository
-        {
-            get
-            {
-                if (_orderDetailsRepository == null)
-                    _orderDetailsRepository = new OrderDetailsRepository(_dbContext);
-                return _orderDetailsRepository;
-            }
-        }
-
-        public IGameOrderDetails GameOrderDetails
-        {
-            get
-            {
-                if (_gameOrderDetailsRepository == null)
-                    _gameOrderDetailsRepository = new GameOrderDetailsRepository(_dbContext);
-                return _gameOrderDetailsRepository;
-            }
-        }
-        public IRefreshTokenRepository RefreshTokenRepository
-        {
-            get
-            {
-                if (_refreshTokenRepository == null)
-                    _refreshTokenRepository = new RefreshTokenRepository(_dbContext);
-                return _refreshTokenRepository;
-            }
         }
 
         public ICommentRepository CommentRepository

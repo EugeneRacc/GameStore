@@ -1,6 +1,5 @@
 ﻿using DAL.Data;
 using DAL.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DAL
@@ -10,17 +9,6 @@ namespace DAL
         public static async Task InitializeAsync(IServiceProvider services)
         {
             await AddTestDataAsync(services.GetRequiredService<GameStoreDbContext>());
-            await AddRolesAsync(services.GetRequiredService<RoleManager<IdentityRole>>());
-        }
-
-        public static async Task AddRolesAsync(RoleManager<IdentityRole> roleManager)
-        {
-            if (!await roleManager.RoleExistsAsync("Manager"))
-                await roleManager.CreateAsync(new IdentityRole("Manager"));
-            if (!await roleManager.RoleExistsAsync("Admin"))
-                await roleManager.CreateAsync(new IdentityRole("Admin"));
-            if (!await roleManager.RoleExistsAsync("User"))
-                await roleManager.CreateAsync(new IdentityRole("User"));
         }
 
         public static async Task AddTestDataAsync(GameStoreDbContext context)

@@ -20,31 +20,6 @@ namespace BLL.Mapper
 
             CreateMap<Genre, GenreModel>()
                 .ReverseMap();
-
-            CreateMap<RefreshToken, RefreshTokenModel>()
-                .ReverseMap();
-
-            CreateMap<Comment, CommentModel>()
-                .ForMember(cm => cm.CreatedDate, c => 
-                    c.MapFrom(src => src.Created))
-                .ForMember(cm => cm.ReplyId, c =>
-                    c.MapFrom(src => src.ReplieId))
-                    .ReverseMap();
-                    
-            CreateMap<OrderDetails, OrderDetailsModel>()
-                .ForMember(odm => odm.Phone, 
-                    od => od.MapFrom(src => src.UserPhone))
-                .ForMember(odm => odm.OrderedGames, 
-                    god => god.MapFrom(src => src.GameOrderDetails))
-                .ReverseMap();
-
-            CreateMap<GameOrderDetails, GameOrderDetailsModel>()
-                .ReverseMap();
-
-            CreateMap<UserModel, User>()
-                .ForMember(um => um.Id, u
-                    => u.MapFrom(src => src.Id.ToString()))
-                .ReverseMap();
         }
     }
 }
