@@ -61,12 +61,14 @@ namespace BLL.Services
             return model;
         }
 
-        public async Task UpdateAsync(GameModel model)
+        public async Task<GameModel> UpdateAsync(GameModel model)
         {
             var updatedGame = await GetUpdatedGame(model);
             _unitOfWork.GameRepository.Update(updatedGame);
             await UpdateGameGenres(model);
             await _unitOfWork.SaveAsync();
+            var resultGame = await _unitOfWork.GameRepository.GetByIdWithDetailsAsync(model.Id ?? Guid.Empty);
+            return _mapper.Map<GameModel>(resultGame);
         }
 
         public async Task DeleteAsync(GameModel model)

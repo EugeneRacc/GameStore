@@ -39,6 +39,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Manager, Admin")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateGame([FromBody] GameModel model)
@@ -48,15 +49,17 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Manager, Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateGame([FromBody] GameModel model)
         {
-            await _gameService.UpdateAsync(model);
-            return Ok("Updated successfully");
+            var updatedGame = await _gameService.UpdateAsync(model);
+            return Ok(updatedGame);
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Manager, Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteGame([FromBody] GameModel model)
