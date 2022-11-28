@@ -34,12 +34,6 @@ export class GameListComponent implements OnInit {
         console.log("Name filtering is " + this.nameFiltering)
       }
     );
-    this.gameService.getGames().subscribe(
-      (games) => {
-        this.games = games
-        this.games.push(...games)
-        this.games.push(...games)
-      });
     this.gameService.updatedGames.subscribe(
       () => {
         this.gameService.getGames().subscribe(
@@ -48,7 +42,13 @@ export class GameListComponent implements OnInit {
           }
         )
       }
-    )
+    );
+    this.gameService.getGames().subscribe(
+      (games) => {
+        this.games = games
+        this.games.push(...games)
+        this.games.push(...games)
+      });
   }
 
   onCheckImageWithBiggerWidth(index: number):boolean

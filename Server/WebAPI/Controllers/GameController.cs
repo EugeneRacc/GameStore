@@ -62,7 +62,7 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> DeleteGame([FromBody] GameModel model)
         {
             await _gameService.DeleteAsync(model);
-            return Ok("Deleted successfully");
+            return Ok(new {Response = "deleted successfully"});
         }
 
        

@@ -45,14 +45,9 @@ export class GameService {
   }
 
   deleteGame(gameModel: IGame): Observable<string> {
-    let httpResponse = this.http.delete<string>(`https://localhost:7043/api/game`, {
+    return this.http.delete<string>(`https://localhost:7043/api/game`, {
       body: gameModel
     });
-    if(!httpResponse.subscribe({error: err => err.message()})) {
-      this.successfulUpdates.push(true);
-    }
-    this.updatedGames.emit(this.successfulUpdates);
-    return httpResponse;
   }
 
   createGame(gameModel: IGame): Observable<IGame> {

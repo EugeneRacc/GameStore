@@ -20,15 +20,13 @@ export class EditGameComponent implements OnInit {
     this.router.navigate(['edit', this.game.id]);
   }
 
-  onDeleteGame() {
+  onDeleteGame(e: Event) {
+    e.stopPropagation();
     this.gameService.deleteGame(this.game)
       .subscribe(
-        (message) => {
-          console.log(message)
-
-        },
-        error => {
-          console.log(error.message())
+        () => {
+          this.gameService.successfulUpdates.push(true);
+          this.gameService.updatedGames.emit(this.gameService.successfulUpdates);
         }
       );
   }
