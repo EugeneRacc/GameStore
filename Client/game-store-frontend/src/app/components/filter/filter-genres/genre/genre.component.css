@@ -1,0 +1,9 @@
+.genre {
+  margin: 10px 20px;
+}
+
+label {
+  color: black;
+  font-size: 15px;
+  margin-left: 1rem;
+}

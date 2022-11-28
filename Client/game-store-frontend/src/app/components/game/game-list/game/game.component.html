@@ -1,0 +1,22 @@
+<app-edit-game *ngIf="onShowEditPage" [game]="game"></app-edit-game>
+<div class="game"
+     [ngStyle]="{ 'background-image': 'url(' + objectURL + ')'}"
+     [ngClass]="{'game__large': largeImage}"
+     (click)="onOpenDetails()">
+  <div class="game__details"
+       [ngClass]="{'details__large': largeImage}">
+    <!--<img [src]="urlS" alt="game logo">-->
+    <div class="game__buy">
+      <p>{{ game.price | currency }}</p>
+      <button>BUY</button>
+    </div>
+    <div class="game__genres">
+      <p *ngFor="let gameGenre of gameGenres; let indexOfGenre = index">
+        <span *ngIf="indexOfGenre != 0">/ </span>
+        {{ gameGenre.title }}
+        <span *ngIf="indexOfGenre == 0">&nbsp;</span>
+      </p>
+    </div>
+    <p class="game__title">{{ game.title }}</p>
+  </div>
+</div>

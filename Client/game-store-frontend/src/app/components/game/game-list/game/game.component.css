@@ -1,0 +1,62 @@
+.game {
+  background-repeat: no-repeat;
+  height: 80%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: end;
+}
+
+.game__large {
+  background-size: cover;
+  background-position: center;
+  height: 80%;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+.game__details {
+  width: 100%;
+  background-color: rgb(30, 30, 30);
+}
+
+.game__buy {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 26px;
+  margin: 5px 0 5px 0;
+}
+
+.game__buy button{
+  width: 4em;
+  font-weight: 700;
+  background-color: rgb(33, 155, 68);
+  text-align:  center;
+  color: white;
+  font-size: 18px;
+  padding: 5px 0 5px 0;
+  border-radius: 5px;
+}
+
+.game__genres {
+  display: flex;
+  justify-content: start;
+}
+
+.game__title {
+  font-weight: 700;
+}
+
+p {
+  font-family: sans-serif;
+}
+
+.details__large {
+  background: rgb(30, 30, 30, 0.8);
+  padding: 0 1em 0 1em;
+}
+

@@ -1,0 +1,28 @@
+<div class="details">
+  <div class="wrapper">
+    <div class="details__logo">
+      <img [src]="urlS" alt="Game logo">
+    </div>
+    <p class="details__title">
+      {{ game.title }}
+    </p>
+    <div class="details__buy">
+      <p class="details__price">
+        {{ game.price | currency}}
+      </p>
+      <button type="button">BUY</button>
+    </div>
+    <hr>
+    <div class="details__genres">
+      <div class="details__genre" *ngFor="let genre of gameGenres">
+        {{ genre.title }}
+      </div>
+    </div>
+    <div class="details__details">
+      <p>{{ game.description }}</p>
+    </div>
+    <div class="details__comments">
+      Here will be comments
+    </div>
+    </div>
+</div>

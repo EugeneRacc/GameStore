@@ -1,0 +1,81 @@
+.details {
+  width: 100%;
+  background-color: rgb(30, 30, 30);
+  margin: 0 auto;
+}
+
+.wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.details__logo {
+  height: 25em;
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5em;
+  margin-bottom: 2em;
+}
+
+.details__logo img {
+  display: block;
+  height: 100%;
+}
+
+.details__title {
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 0.5em;
+}
+
+.details__buy {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.details__buy p {
+  font-size: 24px;
+}
+
+.details__buy button{
+  width: 6em;
+  font-weight: 700;
+  background-color: rgb(33, 155, 68);
+  text-align:  center;
+  color: white;
+  font-size: 18px;
+  padding: 5px 0 5px 0;
+  border-radius: 1px;
+}
+
+hr {
+ height: 0.1em;
+  background-color: grey;
+  margin-bottom: 1em;
+}
+
+.details__genres {
+  display: flex;
+  justify-content: start;
+}
+
+.details__genre {
+  background-color: dodgerblue;
+  height: 18px;
+  margin: 0 0.5em 1em 0.5em;
+  border-radius: 10px;
+  padding: 0.6em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.details__details {
+  padding-bottom: 1em;
+}
+
+.details__details p {
+  font-weight: 500;
+}
