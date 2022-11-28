@@ -54,4 +54,8 @@ export class GameService {
     this.updatedGames.emit(this.successfulUpdates);
     return httpResponse;
   }
+
+  createGame(gameModel: IGame): Observable<IGame> {
+    return this.http.post<IGame>(`https://localhost:7043/api/game`, gameModel);
+  }
 }

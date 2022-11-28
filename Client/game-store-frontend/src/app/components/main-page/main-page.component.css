@@ -1,0 +1,20 @@
+.main {
+  background-color: rgb(30, 30, 30);
+}
+.main__create {
+  display: flex;
+  width: 91.5%;
+  margin: 1em auto;
+  justify-content: end;
+  align-items: center;
+}
+.create {
+  width: 13%;
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  background-color: green;
+  border-radius: 10px;
+  padding: 0.4em;
+}

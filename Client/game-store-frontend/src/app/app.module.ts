@@ -15,6 +15,8 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { GameDetailsComponent } from './components/game-details/game-details.component';
 import { EditGameComponent } from './components/main-page/edit-game/edit-game.component';
 import { EditGamePageComponent } from './components/main-page/edit-game/edit-game-page/edit-game-page.component';
+import { CreateGameComponent } from './components/main-page/create-game/create-game.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -29,12 +31,14 @@ import { EditGamePageComponent } from './components/main-page/edit-game/edit-gam
     MainPageComponent,
     GameDetailsComponent,
     EditGameComponent,
-    EditGamePageComponent
+    EditGamePageComponent,
+    CreateGameComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
