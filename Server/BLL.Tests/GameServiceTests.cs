@@ -38,8 +38,7 @@ namespace BLL.Tests
             
             //assert
             actual.Should().BeEquivalentTo(expected, options => 
-                options.Excluding(x => x.GenreIds)
-                       .Excluding(x => x.ImageIds));
+                options.Excluding(x => x.GenreIds));
         }
 
         [Theory]
@@ -61,8 +60,7 @@ namespace BLL.Tests
 
             //assert
             actual.Should().BeEquivalentTo(expected, options =>
-                options.Excluding(x => x.GenreIds)
-                       .Excluding(x => x.ImageIds));
+                options.Excluding(x => x.GenreIds));
         }
 
         [Fact]
@@ -102,8 +100,7 @@ namespace BLL.Tests
 
             //assert
             actual.Should().BeEquivalentTo(expected, options =>
-                options.Excluding(x => x.GenreIds)
-                       .Excluding(x => x.ImageIds));
+                options.Excluding(x => x.GenreIds));
             actual.Id.Should().Be(expected.Id);
         }
 
@@ -177,7 +174,6 @@ namespace BLL.Tests
                                        .Without(x => x.Comments)
                                        .Without(x => x.GameGenres)
                                        .Without(x => x.GameImages)
-                                       .Without(x => x.GameOrderDetails)
                                        .Create();
             _dbMock.Setup(x => x.GameRepository.GetByIdWithDetailsWithNoTrack(It.IsAny<Guid>()))
                    .ReturnsAsync(moqGameFromDb);
@@ -206,7 +202,6 @@ namespace BLL.Tests
                                        .Without(x => x.Comments)
                                        .Without(x => x.GameGenres)
                                        .Without(x => x.GameImages)
-                                       .Without(x => x.GameOrderDetails)
                                        .Create();
             var moqGameGenres = fixture
                                 .Build<GameGenre>()
