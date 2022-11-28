@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {IGame} from "../../../../models/game.model";
 
 @Component({
   selector: 'app-edit-game-page',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-game-page.component.css']
 })
 export class EditGamePageComponent implements OnInit {
+  game:IGame;
+
 
   constructor() { }
 

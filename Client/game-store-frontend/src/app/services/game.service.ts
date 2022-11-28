@@ -10,6 +10,8 @@ import {IGenre} from "../models/genre.model";
 })
 export class GameService {
   selectedNamesChanged = new EventEmitter<string>();
+  successfulUpdates: boolean[] = []
+  updatedGames = new EventEmitter<boolean[]>();
 
   constructor(private http: HttpClient, private genreService: GenreService) {
   }
@@ -40,5 +42,16 @@ export class GameService {
 
   getGameById(id: string): Observable<IGame> {
     return this.http.get<IGame>(`https://localhost:7043/api/game/${id}`)
+  }
+
+  deleteGame(gameModel: IGame): Observable<string> {
+    let httpResponse = this.http.delete<string>(`https://localhost:7043/api/game`, {
+      body: gameModel
+    });
+    if(!httpResponse.subscribe({error: err => err.message()})) {
+      this.successfulUpdates.push(true);
+    }
+    this.updatedGames.emit(this.successfulUpdates);
+    return httpResponse;
   }
 }

@@ -1,1 +1,20 @@
-<p>edit-game-page works!</p>
+<div class="form">
+  <form>
+    <div class="id">
+      <label for="id">Id</label>
+      <input type="text" id="id"  value="game.id" disabled>
+    </div>
+    <div class="title">
+      <label for="title">Game title</label>
+      <input type="text" id="title" [value]="game.title">
+    </div>
+    <div class="description">
+      <label for="description">Description</label>
+      <input type="text" id="description">
+    </div>
+    <div class="price">
+      <label for="price">Price</label>
+      <input type="number" id="price">
+    </div>
+  </form>
+</div>

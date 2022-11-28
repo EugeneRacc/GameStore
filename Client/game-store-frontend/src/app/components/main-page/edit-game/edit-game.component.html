@@ -1,4 +1,4 @@
-<div class="edit">
+<div class="edit" (click)="onOpenGameDetails()">
   <div class="edit__edit" (click)="onEditGame()">
       <div class="edit__img">
         <img src="assets/icons/edit.svg" alt="edit icon">
@@ -7,7 +7,7 @@
       Edit Game
     </p>
   </div>
-  <div class="edit__delete">
+  <div class="edit__delete" (click)="onDeleteGame()">
     <div class="edit__img">
       <img src="assets/icons/delete.svg" alt="delete icon">
     </div>

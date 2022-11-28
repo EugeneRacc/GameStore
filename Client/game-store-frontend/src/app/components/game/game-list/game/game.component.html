@@ -1,4 +1,4 @@
-<app-edit-game *ngIf="onShowEditPage" [gameId]="game.id"></app-edit-game>
+<app-edit-game *ngIf="onShowEditPage" [game]="game"></app-edit-game>
 <div class="game"
      [ngStyle]="{ 'background-image': 'url(' + objectURL + ')'}"
      [ngClass]="{'game__large': largeImage}"

@@ -40,6 +40,15 @@ export class GameListComponent implements OnInit {
         this.games.push(...games)
         this.games.push(...games)
       });
+    this.gameService.updatedGames.subscribe(
+      () => {
+        this.gameService.getGames().subscribe(
+          (games) => {
+            this.games = games
+          }
+        )
+      }
+    )
   }
 
   onCheckImageWithBiggerWidth(index: number):boolean

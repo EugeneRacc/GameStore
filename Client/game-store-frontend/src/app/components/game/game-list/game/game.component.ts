@@ -27,9 +27,6 @@ export class GameComponent implements OnInit {
   @HostListener('mouseleave', ['$event']) onLeave() {
     this.onShowEditPage = false;
   }
-  @HostListener('click', ['$event']) onClick() {
-
-  }
 
   constructor(private imageService: ImageService, private genreService: GenreService, private sanitizer: DomSanitizer,
               private router: Router) {}
