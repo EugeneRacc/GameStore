@@ -1,3 +1,4 @@
+<app-edit-game *ngIf="onShowEditPage" [gameId]="game.id"></app-edit-game>
 <div class="game"
      [ngStyle]="{ 'background-image': 'url(' + objectURL + ')'}"
      [ngClass]="{'game__large': largeImage}"
@@ -18,5 +19,4 @@
     </div>
     <p class="game__title">{{ game.title }}</p>
   </div>
-
 </div>

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {IGame} from "../../../../models/game.model";
 import {ImageService} from "../../../../services/image.service";
 import {IImage} from "../../../../models/image.model";
@@ -19,6 +19,17 @@ export class GameComponent implements OnInit {
   gameImages: IImage[];
   gameGenres: IGenre[];
   objectURL: string;
+  onShowEditPage = false;
+
+  @HostListener('mouseenter', ['$event']) onEnter() {
+    this.onShowEditPage = true;
+  }
+  @HostListener('mouseleave', ['$event']) onLeave() {
+    this.onShowEditPage = false;
+  }
+  @HostListener('click', ['$event']) onClick() {
+
+  }
 
   constructor(private imageService: ImageService, private genreService: GenreService, private sanitizer: DomSanitizer,
               private router: Router) {}

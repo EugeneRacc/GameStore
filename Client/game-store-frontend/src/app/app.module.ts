@@ -13,6 +13,8 @@ import {GameComponent} from "./components/game/game-list/game/game.component";
 import { FooterComponent } from './components/footer/footer.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { GameDetailsComponent } from './components/game-details/game-details.component';
+import { EditGameComponent } from './components/main-page/edit-game/edit-game.component';
+import { EditGamePageComponent } from './components/main-page/edit-game/edit-game-page/edit-game-page.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { GameDetailsComponent } from './components/game-details/game-details.com
     GameComponent,
     FooterComponent,
     MainPageComponent,
-    GameDetailsComponent
+    GameDetailsComponent,
+    EditGameComponent,
+    EditGamePageComponent
   ],
   imports: [
     BrowserModule,
