@@ -1,0 +1,50 @@
+.registration {
+  background-color: rgb(30, 30, 30);
+  width: 100%;
+  text-align: center;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 700;
+  padding-top: 1em;
+}
+
+.registration__form div {
+  margin: 1em 0 1em 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  width: 30%;
+  font-weight: 700;
+}
+
+input {
+  width: 30%;
+  height: 2em;
+  border-radius: 10px;
+  margin-left: 3em;
+  padding-left: 1em;
+}
+
+button {
+  width: 5em;
+  height: 2em;
+  background-color: green;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  border-radius: 10px;
+  margin-bottom: 1em;
+}
+
+p {
+  font-weight: 700;
+}
+
+.alert {
+  color: red;
+}

@@ -4,6 +4,8 @@ import {MainPageComponent} from "./components/main-page/main-page.component";
 import {GameDetailsComponent} from "./components/game-details/game-details.component";
 import {EditGamePageComponent} from "./components/main-page/edit-game/edit-game-page/edit-game-page.component";
 import {CreateGameComponent} from "./components/main-page/create-game/create-game.component";
+import {RegistrationComponent} from "./components/authentication/registration/registration.component";
+
 
 const routes: Routes = [
   {
@@ -13,6 +15,14 @@ const routes: Routes = [
   {
     path: "create",
     component: CreateGameComponent
+  },
+  {
+    path: "register",
+    component: RegistrationComponent
+  },
+  {
+    path: "login",
+    component:MainPageComponent
   },
   {
     path: ":id",
