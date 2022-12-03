@@ -37,8 +37,8 @@ export class RegistrationComponent implements OnInit {
         err => {
           console.log("It's error")
           if(!(err.error as IErrorModel).Message){
-            this.router.navigate(['..', 'login'], {relativeTo: this.route});
-            return;
+            this.authService.loginOpened.emit(true);
+            this.router.navigate(['..'], {relativeTo: this.route});
           }
           this.message = (err.error as IErrorModel).Message;
         },
