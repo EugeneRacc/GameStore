@@ -1,5 +1,5 @@
-<div class="login">
-  <div class="login__form">
+<div class="login" (click)="onCloseLogin()">
+  <div class="login__form" appStopPropagation>
     <h2>Please login</h2>
     <form #form="ngForm" (ngSubmit)="onLogin()">
       <div>

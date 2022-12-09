@@ -36,4 +36,7 @@ export class LoginComponent implements OnInit {
       .subscribe((next) => console.log(next))
   }
 
+  onCloseLogin() {
+    this.router.navigate(['..'], {relativeTo: this.activeRoute});
+  }
 }

@@ -31,20 +31,10 @@ export class RegistrationComponent implements OnInit {
     this.authService.registerUser(this.registrationModel)
       .subscribe(
         () => {
-          console.log("Completed shit")
-          this.router.navigate(['..', 'login'], {relativeTo: this.route});
+          this.router.navigate(['..', 'main-page', 'login'], {relativeTo: this.route});
         },
         err => {
-          console.log("It's error")
-          if(!(err.error as IErrorModel).Message){
-            this.authService.loginOpened.emit(true);
-            this.router.navigate(['..'], {relativeTo: this.route});
-          }
           this.message = (err.error as IErrorModel).Message;
-        },
-        () => {
-          console.log("It's complete")
-          this.router.navigate(['..', 'login'], {relativeTo: this.route});
         }
       );
 

@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
         {
             if(!ModelState.IsValid) return BadRequest("Please, provide all the required data");
            await _authenticationService.RegisterUserAsync(model);
-            return Ok("User created");
+            return Ok(new {Response = "User created"});
         }
 
         [HttpPost("login")]
