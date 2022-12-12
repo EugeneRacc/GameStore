@@ -19,8 +19,8 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
             if(!ModelState.IsValid) return BadRequest("Please, provide all the required data");
-            await _authenticationService.RegisterUserAsync(model);
-            return Ok("User created");
+           await _authenticationService.RegisterUserAsync(model);
+            return Ok(new {Response = "User created"});
         }
 
         [HttpPost("login")]

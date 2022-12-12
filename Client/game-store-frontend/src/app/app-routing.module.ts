@@ -4,27 +4,40 @@ import {MainPageComponent} from "./components/main-page/main-page.component";
 import {GameDetailsComponent} from "./components/game-details/game-details.component";
 import {EditGamePageComponent} from "./components/main-page/edit-game/edit-game-page/edit-game-page.component";
 import {CreateGameComponent} from "./components/main-page/create-game/create-game.component";
+import {RegistrationComponent} from "./components/authentication/registration/registration.component";
+import {LoginComponent} from "./components/authentication/login/login.component";
+
 
 const routes: Routes = [
   {
-    path: "",
-    component: MainPageComponent
+    path: "main-page",
+    component: MainPageComponent,
+    children: [
+      {
+        path: "login",
+        component:LoginComponent
+      },
+    ]
   },
   {
     path: "create",
     component: CreateGameComponent
   },
   {
-    path: ":id",
-    component: GameDetailsComponent
+    path: "register",
+    component: RegistrationComponent
+  },
+  {
+    path: "game-details/:id",
+    component:GameDetailsComponent
   },
   {
     path: "edit/:id",
-    component: EditGamePageComponent
+    component:EditGamePageComponent
   },
   {
     path: "**",
-    component: MainPageComponent
+    redirectTo: 'main-page'
   }
 
 ];

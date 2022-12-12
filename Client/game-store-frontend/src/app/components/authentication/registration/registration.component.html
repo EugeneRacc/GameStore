@@ -1,0 +1,65 @@
+<div class="registration">
+  <div class="registration__message">
+    <p class="alert">{{ message }}</p>
+  </div>
+    <h1>Sign up</h1>
+    <div class="registration__form">
+      <form #form="ngForm" (ngSubmit)="onCreateUser()">
+        <div class="registration__first-name">
+          <label for="first-name">First Name</label>
+          <input #firstName="ngModel"
+                 required
+                 minlength="1"
+                 id="first-name"
+                 type="text"
+                 [(ngModel)]="registrationModel.firstName"
+                 name="first-name">
+        </div>
+        <p *ngIf="firstName.touched && firstName.errors?.['required']" class="alert">First Name can't be empty</p>
+        <p *ngIf="firstName.errors?.['minlength']" class="alert">First Name can't be less then 1</p>
+        <div class="registration__last-name">
+          <label for="last-name">Last Name</label>
+          <input #lastName="ngModel"
+                 required
+                 minlength="1"
+                 id="last-name"
+                 type="text"
+                 [(ngModel)]="registrationModel.lastName"
+                 name="last-name">
+        </div>
+        <p *ngIf="lastName.touched && lastName.errors?.['required']" class="alert">Last Name can't be empty</p>
+        <p *ngIf="lastName.errors?.['minlength']" class="alert">Last Name can't be less then 1</p>
+        <div class="registration__email">
+          <label for="email">Email</label>
+          <input #email="ngModel"
+                 required
+                 id="email"
+                 type="email"
+                 [(ngModel)]="registrationModel.email"
+                 name="email">
+        </div>
+        <p *ngIf="email.touched && email.errors?.['required']" class="alert">Email can't be empty</p>
+        <div class="registration__username">
+          <label for="username">Username</label>
+          <input #username="ngModel"
+                 id="username"
+                 type="text"
+                 [(ngModel)]="registrationModel.userName"
+                 name="username">
+        </div>
+        <div class="registration__password">
+          <label for="password">Password</label>
+          <input #password="ngModel"
+                 required
+                 minlength="8"
+                 id="password"
+                 type="password"
+                 [(ngModel)]="registrationModel.password"
+                 name="password">
+        </div>
+        <p *ngIf="password.touched && password.errors?.['required']" class="alert">Password can't be empty</p>
+        <p *ngIf="password.touched && password.errors?.['minlength']" class="alert">Password can't be less then 8 characters</p>
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+</div>

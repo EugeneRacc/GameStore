@@ -32,6 +32,6 @@ export class EditGameComponent implements OnInit {
   }
 
   onOpenGameDetails() {
-    this.router.navigate([this.game.id])
+    this.router.navigate(['game-details', this.game.id])
   }
 }

@@ -17,6 +17,9 @@ import { EditGameComponent } from './components/main-page/edit-game/edit-game.co
 import { EditGamePageComponent } from './components/main-page/edit-game/edit-game-page/edit-game-page.component';
 import { CreateGameComponent } from './components/main-page/create-game/create-game.component';
 import {FormsModule} from "@angular/forms";
+import { RegistrationComponent } from './components/authentication/registration/registration.component';
+import { LoginComponent } from './components/authentication/login/login.component';
+import { StopPropagationDirective } from './directives/stop-propagation.directive';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import {FormsModule} from "@angular/forms";
     GameDetailsComponent,
     EditGameComponent,
     EditGamePageComponent,
-    CreateGameComponent
+    CreateGameComponent,
+    RegistrationComponent,
+    LoginComponent,
+    StopPropagationDirective
   ],
   imports: [
     BrowserModule,
