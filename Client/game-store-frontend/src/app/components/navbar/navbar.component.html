@@ -5,11 +5,18 @@
   </div>
   <nav>
   <ul class="nav__links">
-    <li><a routerLink="/">Games</a></li>
+    <li><a routerLink="/main-page">Games</a></li>
     <li><a href="#">Community</a></li>
     <li><a href="#">About</a></li>
     <li><a href="#">Support</a></li>
   </ul>
   </nav>
-  <a routerLink="/login">Sign in</a>
+  <div class="nav__auth" *ngIf="!isUserAuthenticated">
+    <a routerLink="main-page/login">Sign in</a>
+    <a routerLink="/register" style="margin-left: 1em">Sign up</a>
+  </div>
+  <div class="nav__logout" *ngIf="isUserAuthenticated">
+    <p style="display: inline">{{ currentUserName }}</p>
+    <a  routerLink="main-page" style="margin-left: 1em" (click)="onLogout()">Logout</a>
+  </div>
 </header>

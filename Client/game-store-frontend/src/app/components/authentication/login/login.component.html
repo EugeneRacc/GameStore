@@ -1,6 +1,7 @@
 <div class="login" (click)="onCloseLogin()">
   <div class="login__form" appStopPropagation>
     <h2>Please login</h2>
+    <p *ngIf="errMessage" style="color: red">{{ errMessage }}</p>
     <form #form="ngForm" (ngSubmit)="onLogin()">
       <div>
         <label for="username">Username</label>

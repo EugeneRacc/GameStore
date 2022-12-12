@@ -5,7 +5,8 @@ import {IImage} from "../../../../models/image.model";
 import {GenreService} from "../../../../services/genre.service";
 import {IGenre} from "../../../../models/genre.model";
 import {DomSanitizer} from "@angular/platform-browser";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {AuthenticationService} from "../../../../services/authentication.service";
 
 @Component({
   selector: 'app-game',
@@ -20,16 +21,19 @@ export class GameComponent implements OnInit {
   gameGenres: IGenre[];
   objectURL: string;
   onShowEditPage = false;
+  currentUserRole: string[] = [];
 
   @HostListener('mouseenter', ['$event']) onEnter() {
-    this.onShowEditPage = true;
+    if (this.currentUserRole.includes("Admin")){
+      this.onShowEditPage = true;
+    }
   }
   @HostListener('mouseleave', ['$event']) onLeave() {
     this.onShowEditPage = false;
   }
 
   constructor(private imageService: ImageService, private genreService: GenreService, private sanitizer: DomSanitizer,
-              private router: Router) {}
+              private router: Router, private active: ActivatedRoute, private authService: AuthenticationService) {}
 
   ngOnInit(): void {
     this.imageService.getImagesByGameId(this.game.id)
@@ -39,10 +43,21 @@ export class GameComponent implements OnInit {
       });
     this.genreService.getGenresByGameId(this.game.id)
         .subscribe((genres) => this.gameGenres = genres);
+    this.authService.currentUser.subscribe(
+      user => {
+        if (user != null){
+          this.currentUserRole = user.roleNames;
+        }
+        else {
+          this.currentUserRole = [];
+        }
+      }
+    )
   }
 
   onOpenDetails() {
-    this.router.navigate([`${this.game.id}`]);
+    console.log("try navigate")
+    this.router.navigate(['main-page', 'game-details', `${this.game.id}`]);
   }
 }
 
