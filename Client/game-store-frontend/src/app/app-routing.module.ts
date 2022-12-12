@@ -28,16 +28,16 @@ const routes: Routes = [
     component: RegistrationComponent
   },
   {
-    path: ":id",
-    component: GameDetailsComponent
+    path: "game-details/:id",
+    component:GameDetailsComponent
   },
   {
     path: "edit/:id",
-    component: EditGamePageComponent
+    component:EditGamePageComponent
   },
   {
     path: "**",
-    component: MainPageComponent
+    redirectTo: 'main-page'
   }
 
 ];
