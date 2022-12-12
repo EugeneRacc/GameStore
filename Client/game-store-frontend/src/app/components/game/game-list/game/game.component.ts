@@ -57,7 +57,7 @@ export class GameComponent implements OnInit {
 
   onOpenDetails() {
     console.log("try navigate")
-    this.router.navigate(['main-page', 'game-details', `${this.game.id}`]);
+    this.router.navigate(['game-details', `${this.game.id}`]);
   }
 }
 

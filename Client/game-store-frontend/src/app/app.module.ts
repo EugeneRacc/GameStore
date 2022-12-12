@@ -20,6 +20,8 @@ import {FormsModule} from "@angular/forms";
 import { RegistrationComponent } from './components/authentication/registration/registration.component';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { StopPropagationDirective } from './directives/stop-propagation.directive';
+import { CommentListComponent } from './components/game-details/comment-list/comment-list.component';
+import { CommentComponent } from './components/game-details/comment-list/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { StopPropagationDirective } from './directives/stop-propagation.directiv
     CreateGameComponent,
     RegistrationComponent,
     LoginComponent,
-    StopPropagationDirective
+    StopPropagationDirective,
+    CommentListComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
