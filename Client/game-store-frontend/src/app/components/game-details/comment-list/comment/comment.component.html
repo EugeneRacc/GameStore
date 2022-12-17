@@ -1,1 +1,18 @@
-<p>comment works!</p>
+<div class="wrapper">
+  <div class="comment">
+    <div class="comment__user-name">
+      <span><img src="assets/icons/person.svg" alt="person">
+      <span>{{ currentUserName }}</span>
+    </span>
+    </div>
+    <div class="comment__body">
+      <p>"{{ currentComment.body }}"</p>
+    </div>
+    <div class="comment__reply">
+      <p class="reply">Reply</p>
+    </div>
+  </div>
+  <div class="reply-comment" *ngFor="let comment of commentReplies">
+    <app-comment [currentComment]="comment" [replies]="getCommentReplies(comment)"></app-comment>
+  </div>
+</div>

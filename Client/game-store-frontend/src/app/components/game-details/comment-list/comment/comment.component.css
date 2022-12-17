@@ -1,0 +1,30 @@
+.comment{
+  display: flex;
+  flex-direction: column;
+}
+
+.comment__user-name {
+  margin-bottom: 0.5em;
+  display: flex;
+  align-items: center;
+}
+
+.comment__user-name span {
+  font-weight: bold;
+}
+
+img {
+  filter: invert(100%);
+  width: 20px;
+  margin-right: 0.5em;
+}
+
+.reply {
+  color: lightskyblue;
+  text-decoration: underline;
+  margin: 1em 0 1em 0;
+}
+
+.reply-comment {
+  margin-left: 2em;
+}

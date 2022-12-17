@@ -4,5 +4,6 @@ export interface ICommentModel {
   createdDate: string,
   gameId: string,
   userId: string,
-  replyId: string | null
+  replyId: string | null,
+  childComments: string[] | null
 }
