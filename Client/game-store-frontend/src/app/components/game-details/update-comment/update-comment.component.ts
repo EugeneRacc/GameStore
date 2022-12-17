@@ -3,19 +3,19 @@ import {IEditCommentModel} from "../../../models/edit-comment.model";
 import {ActivatedRoute} from "@angular/router";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {CommentService} from "../../../services/comment.service";
+import {ICommentModel} from "../../../models/comment.model";
 
 @Component({
-  selector: 'app-create-comment',
-  templateUrl: './create-comment.component.html',
-  styleUrls: ['./create-comment.component.css']
+  selector: 'app-update-comment',
+  templateUrl: './update-comment.component.html',
+  styleUrls: ['./update-comment.component.css']
 })
-export class CreateCommentComponent implements OnInit {
+export class UpdateCommentComponent implements OnInit {
   @Output() onShowCreatePage = new EventEmitter<boolean>(false);
-  @Input() parentId = "";
-  @Input() message = "Write your comment";
-  @Input() update = false;
+  @Input() currentComment: ICommentModel;
   gameId = "";
-  commentToAdd: IEditCommentModel = {
+  commentToUpdate: IEditCommentModel = {
+    id: "",
     body: "",
     userId: "",
   }
@@ -27,18 +27,16 @@ export class CreateCommentComponent implements OnInit {
     this.authService.currentUser
       .subscribe(user => {
         if (user != null) {
-          this.commentToAdd.userId = user.id
+          this.commentToUpdate.userId = user.id
         }
       })
   }
 
   onSubmit(comment: string) {
-    this.commentToAdd.body = comment;
-    if (this.parentId) {
-      this.commentToAdd.replyId = this.parentId;
-    }
-    if (this.commentToAdd.body && this.commentToAdd.userId) {
-      this.commentService.createComment(this.gameId, this.commentToAdd)
+    this.commentToUpdate.body = comment;
+    this.commentToUpdate.id = this.currentComment.id;
+      if (this.commentToUpdate.body && this.commentToUpdate.userId) {
+      this.commentService.updateComment(this.gameId, this.commentToUpdate)
         .subscribe(() => {
           this.commentService.getAllCommentsByGameId(this.gameId)
             .subscribe(allComments => this.commentService.testComments.next(allComments));

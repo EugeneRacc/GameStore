@@ -8,11 +8,22 @@
     <div class="comment__body">
       <p>"{{ currentComment.body }}"</p>
     </div>
-    <div class="comment__reply" (click)="replyComment = !replyComment">
-      <p class="reply">Reply</p>
+    <div class="comment__reply">
+      <p class="reply" (click)="replyComment = !replyComment">Reply</p>
+      <p class="update" *ngIf="currentUserId === currentComment.userId"
+         (click)="updateComment = !updateComment">Update</p>
+      <p class="delete" *ngIf="currentUserId === currentComment.userId">Delete</p>
     </div>
     <div class="reply-comment" *ngIf="replyComment">
-      <app-create-comment [parentId]="currentComment.id"></app-create-comment>
+      <app-create-comment [parentId]="currentComment.id"
+      [message]="'Write your reply'"
+      (onShowCreatePage)="showCreateReply($event)"></app-create-comment>
+    </div>
+    <div class="update-comment" *ngIf="updateComment">
+      <app-update-comment (onShowCreatePage)="showUpdate($event)"
+                          [currentComment]="currentComment">
+
+      </app-update-comment>
     </div>
   </div>
   <div class="reply-comment" *ngFor="let comment of commentReplies">

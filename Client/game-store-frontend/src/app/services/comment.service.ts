@@ -19,6 +19,10 @@ export class CommentService {
     return this.http.post<ICommentModel>(this.baseURI + "comment/" + gameId, comment);
   }
 
+  updateComment(gameId: string, comment: IEditCommentModel): Observable<ICommentModel>{
+    return this.http.put<ICommentModel>(this.baseURI + "comment/" + gameId, comment);
+  }
+
   getCommentReplies(currentComment: ICommentModel): ICommentModel[] {
     let comments: ICommentModel[] = [];
     if (currentComment.childComments == null || currentComment.childComments.length <= 0) {

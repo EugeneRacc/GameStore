@@ -1,11 +1,11 @@
 <div class="create-comment">
-      <label for="body">{{ message }}</label>
-      <textarea maxlength="600"
-                minlength="5"
-                required
-                id="body"
-                name="body"
-                #body></textarea>
+  <label for="body">Update your comment</label>
+  <textarea maxlength="600"
+            minlength="5"
+            required
+            id="body"
+            name="body"
+            #body>{{ currentComment.body }}</textarea>
   <div class="create-comments__buttons">
     <button type="button" (click)="onSubmit(body.value)" style="margin: 0 1em 0 0;">Save</button>
     <button type="button" (click)="showCreatingPage(true)">Cancel</button>

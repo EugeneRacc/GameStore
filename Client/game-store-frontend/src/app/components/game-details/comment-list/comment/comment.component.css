@@ -19,7 +19,12 @@ img {
   margin-right: 0.5em;
 }
 
-.reply {
+.comment__reply {
+  display: flex;
+  gap: 1em;
+}
+
+.comment__reply p {
   color: lightskyblue;
   text-decoration: underline;
   margin: 1em 0 1em 0;
