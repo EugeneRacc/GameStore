@@ -8,8 +8,11 @@
     <div class="comment__body">
       <p>"{{ currentComment.body }}"</p>
     </div>
-    <div class="comment__reply">
+    <div class="comment__reply" (click)="replyComment = !replyComment">
       <p class="reply">Reply</p>
+    </div>
+    <div class="reply-comment" *ngIf="replyComment">
+      <app-create-comment [parentId]="currentComment.id"></app-create-comment>
     </div>
   </div>
   <div class="reply-comment" *ngFor="let comment of commentReplies">

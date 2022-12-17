@@ -22,6 +22,7 @@ import { LoginComponent } from './components/authentication/login/login.componen
 import { StopPropagationDirective } from './directives/stop-propagation.directive';
 import { CommentListComponent } from './components/game-details/comment-list/comment-list.component';
 import { CommentComponent } from './components/game-details/comment-list/comment/comment.component';
+import { CreateCommentComponent } from './components/game-details/create-comment/create-comment.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { CommentComponent } from './components/game-details/comment-list/comment
     LoginComponent,
     StopPropagationDirective,
     CommentListComponent,
-    CommentComponent
+    CommentComponent,
+    CreateCommentComponent
   ],
   imports: [
     BrowserModule,

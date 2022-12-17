@@ -12,6 +12,7 @@ export class CommentComponent implements OnInit {
   @Input() currentComment: ICommentModel;
   @Input("replies") commentReplies: ICommentModel[];
   currentUserName: string = "";
+  replyComment = false;
   constructor(private userService: UserService, private commentService: CommentService) { }
 
   ngOnInit(): void {

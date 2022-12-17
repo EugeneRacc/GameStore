@@ -1,0 +1,9 @@
+<div class="create-comment">
+      <label for="body">Write your {{ parentId ? "reply" : "comment" }}</label>
+      <textarea maxlength="600"
+                required
+                id="body"
+                name="body"
+                #body></textarea>
+    <button type="button" (click)="onSubmit(body.value)">Submit</button>
+</div>

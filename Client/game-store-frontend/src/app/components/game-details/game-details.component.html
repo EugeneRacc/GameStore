@@ -21,6 +21,12 @@
     <div class="details__details">
       <p>{{ game.description }}</p>
     </div>
+    <button type="button" class="write-comment" (click)="createComment = !createComment"
+            *ngIf="isAuth">Write Comment</button>
+    <p *ngIf="!isAuth" style="margin: 0 1em 1em 0; font-size: 20px; color: grey;">Login to comment games</p>
+    <div class="add-comment" *ngIf="createComment">
+      <app-create-comment (onShowCreatePage)="onShowCreate($event)"></app-create-comment>
+    </div>
     <div class="details__comments">
       <app-comment-list></app-comment-list>
     </div>

@@ -16,8 +16,9 @@ export class CommentListComponent implements OnInit {
   ngOnInit(): void {
     this.commentService.getAllCommentsByGameId(this.route.snapshot.params["id"])
       .subscribe(gameComments => {
-        this.commentService.testComments = gameComments;
-        this.testComments = gameComments;
+        this.commentService.testComments.next(gameComments);
+        this.commentService.testComments
+          .subscribe(comments => this.testComments = comments);
       },
         error => {
           console.error(error.message)
