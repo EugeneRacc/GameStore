@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using BLL.Interfaces;
 using BLL.Models;
+using DAL.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,13 @@ namespace WebAPI.Controllers
         {
             var userId = User.Claims.First(u => u.Type == ClaimTypes.NameIdentifier).Value;
             var user = await _userService.GetByIdAsync(Guid.Parse(userId));
+            return Ok(user);
+        }
+
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> GetUserDetailsById([FromRoute] Guid id)
+        {
+            var user = await _userService.GetByIdAsync(id);
             return Ok(user);
         }
     }

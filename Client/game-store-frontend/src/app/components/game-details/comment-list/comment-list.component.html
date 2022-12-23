@@ -1,0 +1,4 @@
+<div *ngFor="let comment of testComments">
+  <app-comment [currentComment]="comment" [replies]="getCommentReplies(comment)"
+               *ngIf="comment.replyId == null"></app-comment>
+</div>

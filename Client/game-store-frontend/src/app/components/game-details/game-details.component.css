@@ -39,7 +39,7 @@
   font-size: 24px;
 }
 
-.details__buy button{
+button{
   width: 6em;
   font-weight: 700;
   background-color: rgb(33, 155, 68);
@@ -78,4 +78,11 @@ hr {
 
 .details__details p {
   font-weight: 500;
+}
+
+.write-comment {
+  width: auto;
+  padding: 0.5em;
+  border-radius: 5px;
+  margin-bottom: 1em;
 }

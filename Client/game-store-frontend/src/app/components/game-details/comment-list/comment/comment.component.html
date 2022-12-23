@@ -1,0 +1,43 @@
+<div class="wrapper">
+  <div class="comment-delete" *ngIf="commentToDelete">
+    <p class="warning">This comment will be deleted</p>
+    <div class="comment__body">
+      <p>"{{ currentComment.body }}"</p>
+    </div>
+    <div class="comment-delete__buttons">
+      <p (click)="onRestore()">Restore</p>
+      <p (click)="onSaveDelete()">Save</p>
+    </div>
+  </div>
+  <div class="comment" *ngIf="!commentToDelete">
+    <div class="comment__user-name">
+      <span><img src="assets/icons/person.svg" alt="person">
+      <span>{{ currentUserName }}</span>
+    </span>
+    </div>
+    <div class="comment__body">
+      <p>"{{ currentComment.body }}"</p>
+    </div>
+    <div class="comment__reply">
+      <p class="reply" (click)="replyComment = !replyComment">Reply</p>
+      <p class="update" *ngIf="currentUserId === currentComment.userId"
+         (click)="updateComment = !updateComment">Update</p>
+      <p class="delete" *ngIf="currentUserId === currentComment.userId"
+      (click)="onDeleteComment(currentComment)">Delete</p>
+    </div>
+    <div class="reply-comment" *ngIf="replyComment">
+      <app-create-comment [parentId]="currentComment.id"
+      [message]="'Write your reply'"
+      (onShowCreatePage)="showCreateReply($event)"></app-create-comment>
+    </div>
+    <div class="update-comment" *ngIf="updateComment">
+      <app-update-comment (onShowCreatePage)="showUpdate($event)"
+                          [currentComment]="currentComment">
+
+      </app-update-comment>
+    </div>
+  </div>
+  <div class="reply-comment" *ngFor="let comment of commentReplies">
+    <app-comment [currentComment]="comment" [replies]="getCommentReplies(comment)"></app-comment>
+  </div>
+</div>

@@ -20,4 +20,5 @@
   max-width: 25%;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  z-index: 10;
 }

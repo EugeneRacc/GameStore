@@ -7,6 +7,7 @@ import {IImage} from "../../models/image.model";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {IGenre} from "../../models/genre.model";
 import {GenreService} from "../../services/genre.service";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-game-details',
@@ -27,9 +28,11 @@ export class GameDetailsComponent implements OnInit {
   ];
   gameImages: IImage[];
   urlS: SafeUrl;
-
+  createComment = false;
+  isAuth = false;
   constructor(private gameService: GameService, private imageService: ImageService, private router: ActivatedRoute,
-              private sanitizer: DomSanitizer, private genreService: GenreService) {
+              private sanitizer: DomSanitizer, private genreService: GenreService,
+              private authService: AuthenticationService) {
   }
 
   ngOnInit(): void {
@@ -51,7 +54,13 @@ export class GameDetailsComponent implements OnInit {
         }
       );
 
-
+    this.authService.isAuth
+      .subscribe(userAuth => this.isAuth = userAuth);
   }
 
+  onShowCreate(show: boolean) {
+    if (show) {
+      this.createComment = false;
+    }
+  }
 }

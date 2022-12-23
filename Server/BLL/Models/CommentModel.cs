@@ -8,5 +8,6 @@
         public Guid? GameId { get; set; }
         public Guid UserId { get; set; }
         public Guid? ReplyId { get; set; }
+        public ICollection<Guid>? ChildComments { get; set; }
     }
 }
