@@ -16,6 +16,7 @@ export class CommentComponent implements OnInit {
   currentUserId: string = "";
   replyComment = false;
   updateComment = false;
+  commentToDelete = false;
   constructor(private userService: UserService, private commentService: CommentService,
               private authService: AuthenticationService) { }
 
@@ -48,5 +49,26 @@ export class CommentComponent implements OnInit {
 
   showUpdate(show: boolean) {
     if (show) this.updateComment = false;
+  }
+
+  onDeleteComment(comment: ICommentModel) {
+    this.commentService.commentsToDelete.push(comment);
+    this.commentToDelete = true;
+  }
+
+  onRestore(){
+    this.commentService.commentsToDelete.splice(
+      this.commentService.commentsToDelete.indexOf(this.currentComment), 1);
+    this.commentToDelete = false;
+  }
+
+  onSaveDelete() {
+    this.commentService.deleteComment(this.currentComment.gameId, this.currentComment)
+      .subscribe(() => {
+        this.commentService.commentsToDelete.splice(
+          this.commentService.commentsToDelete.indexOf(this.currentComment), 1);
+        this.commentService.getAllCommentsByGameId(this.currentComment.gameId)
+          .subscribe(allComments => this.commentService.testComments.next(allComments));
+      });
   }
 }

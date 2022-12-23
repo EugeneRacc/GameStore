@@ -1,5 +1,6 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {AuthenticationService} from "./services/authentication.service";
+import {CommentService} from "./services/comment.service";
 
 @Component({
   selector: 'app-root',
@@ -7,14 +8,21 @@ import {AuthenticationService} from "./services/authentication.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  @HostListener('window:unload', ['$event']) beforeUnloadHandler() {
-    if (!localStorage.getItem("refresh")) {
+  @HostListener('window:beforeunload', ['$event']) async beforeUnloadHandler(event: any) {
+    let refresh = localStorage.getItem('refresh');
+    let token = localStorage.getItem('token');
+    if (!refresh) {
       localStorage.removeItem('token');
+    }
+    if (this.commentService.commentsToDelete.length > 0) {
+      event.preventDefault();
+      this.commentService.deleteRangeOfComments(this.commentService.commentsToDelete,
+        token ?? "")
+        .subscribe();
     }
   }
 
-  constructor(private authService: AuthenticationService) {
-  }
+  constructor(private authService: AuthenticationService, private commentService: CommentService) {}
   ngOnInit(): void {
     this.checkIfUserAuthorized();
   }

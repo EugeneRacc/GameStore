@@ -33,3 +33,26 @@ img {
 .reply-comment {
   margin-left: 2em;
 }
+
+.warning {
+  color: red;
+  font-weight: 700;
+}
+
+.comment-delete__buttons p{
+  color: lightskyblue;
+  text-decoration: underline;
+  margin: 1em 0 1em 0;
+}
+
+.comment-delete__buttons{
+  display: flex;
+  gap: 1em;
+}
+
+.comment-delete {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  background-color: rgb(64,64,64);
+}

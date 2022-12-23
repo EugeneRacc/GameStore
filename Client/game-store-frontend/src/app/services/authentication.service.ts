@@ -28,7 +28,7 @@ export class AuthenticationService {
   }
 
   getUserDetails(token:string): Observable<IUserModel> {
-    let tokenHeader = new HttpHeaders({'Authorization':'Bearer ' + token})
+    let tokenHeader = new HttpHeaders({'Authorization':'Bearer ' + token});
     return this.http.get<IUserModel>(this.baseURL + "user", {headers: tokenHeader});
   }
 
