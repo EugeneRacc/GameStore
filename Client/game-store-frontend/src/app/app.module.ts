@@ -7,7 +7,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { FilterGenresComponent } from './components/filter/filter-genres/filter-genres.component';
 import { GenreComponent } from './components/filter/filter-genres/genre/genre.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { GameListComponent } from './components/game/game-list/game-list.component';
 import {GameComponent} from "./components/game/game-list/game/game.component";
 import { FooterComponent } from './components/footer/footer.component';
@@ -24,6 +24,7 @@ import { CommentListComponent } from './components/game-details/comment-list/com
 import { CommentComponent } from './components/game-details/comment-list/comment/comment.component';
 import { CreateCommentComponent } from './components/game-details/create-comment/create-comment.component';
 import { UpdateCommentComponent } from './components/game-details/update-comment/update-comment.component';
+import {AuthInterceptor} from "./interceptor/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -54,7 +55,11 @@ import { UpdateCommentComponent } from './components/game-details/update-comment
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

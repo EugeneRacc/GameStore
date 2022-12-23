@@ -1,6 +1,8 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {AuthenticationService} from "./services/authentication.service";
 import {CommentService} from "./services/comment.service";
+import {Router} from "@angular/router";
+import {TokenService} from "./services/token.service";
 
 @Component({
   selector: 'app-root',
@@ -21,22 +23,29 @@ export class AppComponent implements OnInit{
         .subscribe();
     }
   }
+  
+  constructor(private authService: AuthenticationService, private router: Router,
+              private tokenService: TokenService, private commentService: CommentService) {
+  }
 
-  constructor(private authService: AuthenticationService, private commentService: CommentService) {}
   ngOnInit(): void {
     this.checkIfUserAuthorized();
   }
 
   checkIfUserAuthorized() {
-    let refresh = localStorage.getItem('refresh');
-    let token = localStorage.getItem('token');
+    let refresh = this.tokenService.getRefreshToken();
+    let token = this.tokenService.getToken();
     if (refresh && token){
       this.authService.authorizeByRefresh({ token: token, refreshToken: refresh })
         .subscribe(token => {
-          localStorage.setItem('token', token.token);
+          this.tokenService.saveToken(token.token);
           this.authService.isAuth.next(true);
           this.authService.getUserDetails(token.token)
             .subscribe(user => this.authService.setNewCurrentUser(user))
+        }, error => {
+          console.log(error);
+          this.tokenService.signOut();
+          this.router.navigateByUrl('/main-page/login');
         })
     }
   }

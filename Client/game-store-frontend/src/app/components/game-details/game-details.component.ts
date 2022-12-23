@@ -16,14 +16,16 @@ import {AuthenticationService} from "../../services/authentication.service";
 })
 export class GameDetailsComponent implements OnInit {
   game: IGame = {
-    id: "",
-    title: "",
-    description: "",
-    price: 0,
     genreIds: [],
-    imageIds: []
+    imageIds: [],
+    price: 0,
+    id: '',
+    title: "",
+    description: ""
   };
-  gameGenres: IGenre[];
+  gameGenres: IGenre[] = [
+    {title: "", id: ""}
+  ];
   gameImages: IImage[];
   urlS: SafeUrl;
   createComment = false;
