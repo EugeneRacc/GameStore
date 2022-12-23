@@ -14,5 +14,10 @@ namespace DAL.Repositories
                                    .ToListAsync();
             return comments;
         }
+
+        public void DeleteRange(IEnumerable<Comment> entities)
+        {
+            db.Comments.RemoveRange(entities);
+        }
     }
 }
