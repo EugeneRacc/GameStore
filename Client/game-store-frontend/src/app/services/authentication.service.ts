@@ -1,5 +1,5 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {IRegistrationModel} from "../models/registration.model";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {IErrorModel} from "../models/error.model";
@@ -15,7 +15,7 @@ export class AuthenticationService {
   baseURL = 'https://localhost:7043/api/';
   loginOpened = new EventEmitter<boolean>();
   isAuth = new BehaviorSubject<boolean>(false);
-  currentUser = new Subject<IUserModel | null>();
+  currentUser = new BehaviorSubject<IUserModel | null>(null);
 
   constructor(private http: HttpClient) { this.loginOpened.emit(false); }
 

@@ -14,8 +14,17 @@ import {GenreService} from "../../services/genre.service";
   styleUrls: ['./game-details.component.css']
 })
 export class GameDetailsComponent implements OnInit {
-  game: IGame;
-  gameGenres: IGenre[];
+  game: IGame = {
+    genreIds: [],
+    imageIds: [],
+    price: 0,
+    id: '',
+    title: "",
+    description: ""
+  };
+  gameGenres: IGenre[] = [
+    {title: "", id: ""}
+  ];
   gameImages: IImage[];
   urlS: SafeUrl;
 
