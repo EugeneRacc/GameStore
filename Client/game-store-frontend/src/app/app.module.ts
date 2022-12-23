@@ -7,7 +7,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { FilterGenresComponent } from './components/filter/filter-genres/filter-genres.component';
 import { GenreComponent } from './components/filter/filter-genres/genre/genre.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { GameListComponent } from './components/game/game-list/game-list.component';
 import {GameComponent} from "./components/game/game-list/game/game.component";
 import { FooterComponent } from './components/footer/footer.component';
@@ -20,6 +20,7 @@ import {FormsModule} from "@angular/forms";
 import { RegistrationComponent } from './components/authentication/registration/registration.component';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { StopPropagationDirective } from './directives/stop-propagation.directive';
+import {AuthInterceptor} from "./interceptor/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -46,7 +47,11 @@ import { StopPropagationDirective } from './directives/stop-propagation.directiv
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
