@@ -1,20 +1,64 @@
 <div class="form">
-  <form>
-    <div class="id">
+  <form #form="ngForm" (ngSubmit)="onSubmit()">
+    <div class="create__id">
       <label for="id">Id</label>
-      <input type="text" id="id"  value="game.id" disabled>
+      <input #id="ngModel"
+             id="id"
+             type="text"
+             [(ngModel)]="gameToChange.id"
+             name="id"
+             disabled>
     </div>
-    <div class="title">
-      <label for="title">Game title</label>
-      <input type="text" id="title" [value]="game.title">
+    <div class="create__title">
+      <label for="title">Title</label>
+      <input #title="ngModel"
+             required
+             minlength="1"
+             id="title"
+             type="text"
+             [(ngModel)]="gameToChange.title"
+             name="title">
     </div>
-    <div class="description">
+    <p *ngIf="title.touched && title.errors?.['required']" class="alert">Description can't be empty</p>
+    <p *ngIf="title.errors?.['minlength']" class="alert">Description can't be less then 1</p>
+    <div class="create__description">
       <label for="description">Description</label>
-      <input type="text" id="description">
+      <input #desc="ngModel"
+             required
+             minlength="5"
+             id="description"
+             type="text"
+             [(ngModel)]="gameToChange.description"
+             name="description">
     </div>
-    <div class="price">
+    <p *ngIf="desc.touched && desc.errors?.['required']" class="alert">Description can't be empty</p>
+    <p *ngIf="desc.errors?.['minlength']" class="alert">Description can't be less then 5</p>
+    <div class="create__price">
       <label for="price">Price</label>
-      <input type="number" id="price">
+      <input #price="ngModel"
+             id="price"
+             min="1"
+             required
+             type="number"
+             [(ngModel)]="gameToChange.price"
+             name="number">
     </div>
+    <p *ngIf="price.touched && price.invalid" class="alert">Price can't be empty</p>
+    <p *ngIf="price.touched && price.errors?.['min']" class="alert">Price can't be cheaper then 1</p>
+    <div class="create__genres">
+      <div class="genres__toAdd">
+        <p>Genres to add: </p>
+        <div class="genre__item" *ngFor="let gameGenre of genresToAdd" (click)="removeGenreFromGame(gameGenre)">{{ gameGenre.title }}</div>
+      </div>
+      <div class="genres__allExisted">
+        <p>All Genres: </p>
+        <div class="genre__item" *ngFor="let genre of allGenres" (click)="addGenreToGameGenres(genre)">{{ genre.title }}</div>
+      </div>
+    </div>
+    <div class="create__image">
+      <label for="price">Choose image for game</label>
+      <input type="file" (change)="onFileSelected($event)">
+    </div>
+    <button type="submit">Edit game</button>
   </form>
 </div>

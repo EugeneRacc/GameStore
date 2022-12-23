@@ -50,6 +50,10 @@ export class GameService {
     });
   }
 
+  updateGame(gameModel: IGame): Observable<IGame>{
+    return this.http.put<IGame>(`https://localhost:7043/api/game`, gameModel);
+  }
+
   createGame(gameModel: IGame): Observable<IGame> {
     return this.http.post<IGame>(`https://localhost:7043/api/game`, gameModel);
   }

@@ -20,4 +20,12 @@ export class ImageService {
     let objectURL = 'data:image/jpeg;base64,' + images[0].image;
     return this.sanitizer.bypassSecurityTrustUrl(objectURL);
   }
+
+  uploadImage(file: File, gameId: string): Observable<IImage> {
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('gameId', gameId);
+    return this.http.post<IImage>(
+      `https://localhost:7043/api/image/upload`, formData);
+  }
 }
