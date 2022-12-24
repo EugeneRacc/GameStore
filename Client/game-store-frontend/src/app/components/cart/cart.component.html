@@ -10,6 +10,6 @@
     </div>
   </div>
   <div class="cart__games">
-    <app-cart-item></app-cart-item>
+    <app-cart-item *ngFor="let game of gamesToBuy" [orderItem]="game"></app-cart-item>
   </div>
 </div>

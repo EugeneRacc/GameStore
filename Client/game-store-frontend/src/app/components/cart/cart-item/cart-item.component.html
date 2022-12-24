@@ -3,21 +3,21 @@
     <img src="assets/icons/search.png" alt="Game Logo">
   </div>
   <div class="order__details">
-    <p class="order__title">{{ game.title }}</p>
-    <p class="order__price">{{ game.price | currency }}</p>
+    <p class="order__title">{{ orderItem.game.title }}</p>
+    <p class="order__price">{{ orderItem.game.price | currency }}</p>
   </div>
   <div class="order__edit-amount">
     <div class="order__button">
-      <span class="minus">&#8722;</span>
-      <span class="amount">{{ testAmount }}</span>
-      <span class="plus">+</span>
+      <span class="minus" (click)="onRemoveOne()">&#8722;</span>
+      <span class="amount">{{ orderItem.amount }}</span>
+      <span class="plus" (click)="onAddOne()">+</span>
     </div>
   </div>
   <div class="order__total">
     <p>Total: </p>
-    <p>{{ testTotal | currency}}</p>
+    <p>{{ getTotalPrice() | currency}}</p>
   </div>
   <div class="order__delete">
-    <p>&#x2715;</p>
+    <p (click)="onDeleteGameFromCart()">&#x2715;</p>
   </div>
 </div>

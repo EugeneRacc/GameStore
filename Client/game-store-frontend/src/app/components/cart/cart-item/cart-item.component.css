@@ -48,7 +48,7 @@ img {
   text-align: center;
   font-size: 24px;
   font-weight: 700;
-
+  cursor: pointer;
 }
 
 .order__button span:nth-child(2){
@@ -75,6 +75,7 @@ img {
 
 .order__delete p {
   font-size: 48px;
+  cursor: pointer;
 }
 
 

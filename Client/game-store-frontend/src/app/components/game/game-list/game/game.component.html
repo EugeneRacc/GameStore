@@ -8,7 +8,7 @@
     <!--<img [src]="urlS" alt="game logo">-->
     <div class="game__buy">
       <p>{{ game.price | currency }}</p>
-      <button>BUY</button>
+      <button type="button" (click)="onAddToCart($event)" style="z-index: 3">BUY</button>
     </div>
     <div class="game__genres">
       <p *ngFor="let gameGenre of gameGenres; let indexOfGenre = index">

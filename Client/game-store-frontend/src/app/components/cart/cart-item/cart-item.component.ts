@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IGame} from "../../../models/game.model";
+import {IOrderModel} from "../../../models/order.model";
+import {CartService} from "../../../services/cart.service";
 
 @Component({
   selector: 'app-cart-item',
@@ -8,20 +9,36 @@ import {IGame} from "../../../models/game.model";
 })
 export class CartItemComponent implements OnInit {
 
-  @Input() game: IGame = {
-    id: "",
-    imageIds: [],
-    genreIds: [],
-    price: 300,
-    description: "",
-    title: "Test Title"
-  }
+  @Input() orderItem: IOrderModel = {
+      game: {
+        id: "",
+        imageIds: [],
+        genreIds: [],
+        price: 300,
+        description: "",
+        title: "Test Title"
+      },
+    amount: 0
+    }
 
-  testAmount = 2;
-  testTotal = 800;
-  constructor() { }
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
   }
 
+  getTotalPrice() {
+    return this.orderItem.game.price * this.orderItem.amount;
+  }
+
+  onAddOne() {
+    this.cartService.addGameToOrder(this.orderItem.game);
+  }
+
+  onRemoveOne() {
+    this.cartService.setLowerAmountOfGame(this.orderItem.game);
+  }
+
+  onDeleteGameFromCart() {
+    this.cartService.deleteGameFromOrder(this.orderItem.game);
+  }
 }

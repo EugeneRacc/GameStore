@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {IGame} from "../../models/game.model";
+import {IOrderModel} from "../../models/order.model";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   selector: 'app-cart',
@@ -8,15 +9,17 @@ import {IGame} from "../../models/game.model";
 })
 export class CartComponent implements OnInit {
 
-  gamesToBuy: IGame[] = [];
-  constructor() { }
+  gamesToBuy: IOrderModel[] = [];
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
+    this.cartService.gamesInOrderS
+      .subscribe(order => this.gamesToBuy = order);
   }
 
   getTotalAmountOfOrder(): number {
     return this.gamesToBuy.reduce((a, b) => {
-      return a + b.price
+      return a + b.game.price * b.amount;
     }, 0);
   }
 }
