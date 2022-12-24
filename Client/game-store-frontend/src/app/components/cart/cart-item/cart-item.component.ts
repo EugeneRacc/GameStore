@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {IOrderModel} from "../../../models/order.model";
 import {CartService} from "../../../services/cart.service";
+import {ImageService} from "../../../services/image.service";
+import {IImage} from "../../../models/image.model";
+import {SafeUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-cart-item',
@@ -20,10 +23,16 @@ export class CartItemComponent implements OnInit {
       },
     amount: 0
     }
-
-  constructor(private cartService: CartService) { }
+  gameImages: IImage[];
+  urlS: SafeUrl;
+  constructor(private cartService: CartService, private imageService: ImageService) { }
 
   ngOnInit(): void {
+    this.imageService.getImagesByGameId(this.orderItem.game.id)
+      .subscribe(images => {
+        this.gameImages = images;
+        this.urlS = this.imageService.sanitizeImage(images);
+      })
   }
 
   getTotalPrice() {
