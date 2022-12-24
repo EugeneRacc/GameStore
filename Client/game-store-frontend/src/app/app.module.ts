@@ -25,6 +25,9 @@ import { CommentComponent } from './components/game-details/comment-list/comment
 import { CreateCommentComponent } from './components/game-details/create-comment/create-comment.component';
 import { UpdateCommentComponent } from './components/game-details/update-comment/update-comment.component';
 import {AuthInterceptor} from "./interceptor/auth.interceptor";
+import { CartComponent } from './components/cart/cart.component';
+import { ButtonComponent } from './components/helpers/button/button.component';
+import { CartItemComponent } from './components/cart/cart-item/cart-item.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import {AuthInterceptor} from "./interceptor/auth.interceptor";
     CommentListComponent,
     CommentComponent,
     CreateCommentComponent,
-    UpdateCommentComponent
+    UpdateCommentComponent,
+    CartComponent,
+    ButtonComponent,
+    CartItemComponent
   ],
   imports: [
     BrowserModule,

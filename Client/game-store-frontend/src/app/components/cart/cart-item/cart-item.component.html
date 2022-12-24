@@ -1,0 +1,23 @@
+<div class="order">
+  <div class="order__image">
+    <img src="assets/icons/search.png" alt="Game Logo">
+  </div>
+  <div class="order__details">
+    <p class="order__title">{{ game.title }}</p>
+    <p class="order__price">{{ game.price | currency }}</p>
+  </div>
+  <div class="order__edit-amount">
+    <div class="order__button">
+      <span class="minus">&#8722;</span>
+      <span class="amount">{{ testAmount }}</span>
+      <span class="plus">+</span>
+    </div>
+  </div>
+  <div class="order__total">
+    <p>Total: </p>
+    <p>{{ testTotal | currency}}</p>
+  </div>
+  <div class="order__delete">
+    <p>&#x2715;</p>
+  </div>
+</div>
