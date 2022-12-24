@@ -1,0 +1,57 @@
+<div class="confirmation">
+  <h2>Completing your order</h2>
+  <form #form="ngForm">
+    <div class="confirmation__first">
+      <label for="first">First Name</label>
+      <input #first="ngModel"
+             required
+             id="first"
+             type="text"
+             [(ngModel)]="order.first"
+             name="first">
+    </div>
+    <p *ngIf="first.touched && first.errors?.['required']" class="alert">Description can't be empty</p>
+    <p *ngIf="first.errors?.['minlength']" class="alert">Description can't be less then 1</p>
+    <div class="confirmation__last">
+      <label for="last">Last Name</label>
+      <input #last="ngModel"
+             required
+             id="last"
+             type="text"
+             [(ngModel)]="order.last"
+             name="last">
+    </div>
+    <div class="confirmation__email">
+      <label for="email">Email</label>
+      <input #email="ngModel"
+             required
+             id="email"
+             type="email"
+             [(ngModel)]="order.email"
+             name="email">
+    </div>
+    <div class="confirmation__phone">
+      <label for="phone">Phone</label>
+      <input #phone="ngModel"
+             required
+             id="phone"
+             type="tel"
+             [(ngModel)]="order.phone"
+             name="phone">
+    </div>
+    <div class="confirmation__payment">
+      <label for="payment">Payment Type</label>
+      <select name="payment" id="payment" [(ngModel)]="order.payment" required>
+        <option value="cash">Cash</option>
+        <option value="card">Card</option>
+      </select>
+    </div>
+    <div class="confirmation__comments">
+      <label for="comments">Comments(optional)</label>
+      <textarea #comments="ngModel"
+             id="comments"
+             [(ngModel)]="order.comments"
+                name="comments"></textarea>
+    </div>
+  </form>
+</div>

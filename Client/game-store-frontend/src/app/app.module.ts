@@ -28,6 +28,7 @@ import {AuthInterceptor} from "./interceptor/auth.interceptor";
 import { CartComponent } from './components/cart/cart.component';
 import { ButtonComponent } from './components/helpers/button/button.component';
 import { CartItemComponent } from './components/cart/cart-item/cart-item.component';
+import { ConfirmationOrderComponent } from './components/confirmation-order/confirmation-order.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { CartItemComponent } from './components/cart/cart-item/cart-item.compone
     UpdateCommentComponent,
     CartComponent,
     ButtonComponent,
-    CartItemComponent
+    CartItemComponent,
+    ConfirmationOrderComponent
   ],
   imports: [
     BrowserModule,
