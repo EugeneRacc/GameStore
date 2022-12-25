@@ -18,6 +18,10 @@ header {
   filter: invert(100%);
 }
 
+img {
+  filter: invert(100%);
+}
+
 .nav__links {
   list-style: none;
 }
@@ -38,4 +42,31 @@ header {
 .logo {
   display: flex;
   align-items: center;
+}
+
+.nav__logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav__logout img {
+  width: 1.5em;
+}
+
+.nav__cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 1em 0 1em;
+}
+
+.nav__auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav__auth img{
+  width: 1.5em;
 }

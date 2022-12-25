@@ -53,6 +53,7 @@ export class ConfirmationOrderComponent implements OnInit {
       this.cartService.sendOrder(this.order)
         .subscribe(() => {
             alert('We got your order. Continue your shopping');
+            this.cartService.gamesInOrderS.next([]);
             this.router.navigateByUrl('main-page');
           },
           error => console.log(error))
