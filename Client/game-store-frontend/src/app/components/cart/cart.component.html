@@ -3,9 +3,10 @@
     <p>Your cart</p>
     <div class="cart__amount">
       <p class="cart__total">Total: {{ getTotalAmountOfOrder() | currency }}</p>
-      <app-button [isDisabled]="true"
-                  [nameOfButton]="'Proceed'"
+      <app-button [nameOfButton]="'Proceed'"
                   [type]="'button'"
+                  (click)="onProceedOrder()"
+                  *ngIf="isProceedDisabled"
       ></app-button>
     </div>
   </div>

@@ -1,0 +1,44 @@
+.confirmation {
+  width: 90%;
+  background-color: rgb(30, 30, 30);
+  margin: 0 auto;
+  padding: 1em;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+  width: 50%;
+}
+
+label {
+  font-size: 18px;
+}
+
+input {
+  height: 2.5em;
+}
+
+textarea {
+  min-height: 10em;
+  margin-bottom: 1em;
+}
+
+form div:last-child {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

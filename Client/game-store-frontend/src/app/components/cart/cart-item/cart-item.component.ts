@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IOrderModel} from "../../../models/order.model";
+import {IGameInOrderModel} from "../../../models/game-in-order.model";
 import {CartService} from "../../../services/cart.service";
 import {ImageService} from "../../../services/image.service";
 import {IImage} from "../../../models/image.model";
@@ -12,7 +12,7 @@ import {SafeUrl} from "@angular/platform-browser";
 })
 export class CartItemComponent implements OnInit {
 
-  @Input() orderItem: IOrderModel = {
+  @Input() orderItem: IGameInOrderModel = {
       game: {
         id: "",
         imageIds: [],
@@ -21,7 +21,7 @@ export class CartItemComponent implements OnInit {
         description: "",
         title: "Test Title"
       },
-    amount: 0
+    amount: 0,
     }
   gameImages: IImage[];
   urlS: SafeUrl;

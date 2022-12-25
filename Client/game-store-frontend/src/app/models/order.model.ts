@@ -1,6 +1,16 @@
-import {IGame} from "./game.model";
+import {PaymentType} from "./payment-type.enum";
+import {IGameWithIdInOrderModel} from "./game-with-id-in-order.model";
 
 export interface IOrderModel {
-  game: IGame,
-  amount: number
+  id?: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+  phone: string,
+  paymentType: PaymentType,
+  orderDate: Date,
+  userId: string,
+  comment: string,
+  orderedGames: IGameWithIdInOrderModel[]
 }
+

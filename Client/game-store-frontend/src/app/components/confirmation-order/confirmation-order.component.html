@@ -1,13 +1,13 @@
 <div class="confirmation">
   <h2>Completing your order</h2>
-  <form #form="ngForm">
+  <form #form="ngForm" (ngSubmit)="onSubmit()">
     <div class="confirmation__first">
       <label for="first">First Name</label>
       <input #first="ngModel"
              required
              id="first"
              type="text"
-             [(ngModel)]="order.first"
+             [(ngModel)]="order.firstName"
              name="first">
     </div>
     <p *ngIf="first.touched && first.errors?.['required']" class="alert">Description can't be empty</p>
@@ -18,7 +18,7 @@
              required
              id="last"
              type="text"
-             [(ngModel)]="order.last"
+             [(ngModel)]="order.lastName"
              name="last">
     </div>
     <div class="confirmation__email">
@@ -41,17 +41,20 @@
     </div>
     <div class="confirmation__payment">
       <label for="payment">Payment Type</label>
-      <select name="payment" id="payment" [(ngModel)]="order.payment" required>
-        <option value="cash">Cash</option>
-        <option value="card">Card</option>
+      <select name="payment" id="payment" [(ngModel)]="order.paymentType" required>
+        <option value="Cash">Cash</option>
+        <option value="Card">Card</option>
       </select>
     </div>
     <div class="confirmation__comments">
       <label for="comments">Comments(optional)</label>
       <textarea #comments="ngModel"
              id="comments"
-             [(ngModel)]="order.comments"
+             [(ngModel)]="order.comment"
                 name="comments"></textarea>
+    </div>
+    <div class="confirmation__button">
+      <app-button [type]="'submit'" [nameOfButton]="'Order'"></app-button>
     </div>
   </form>
 </div>
