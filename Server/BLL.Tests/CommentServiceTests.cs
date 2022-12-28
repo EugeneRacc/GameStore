@@ -8,6 +8,7 @@ using DAL.Data;
 using DAL.Entities;
 using DAL.Interfaces;
 using FluentAssertions;
+using Microsoft.AspNetCore.Identity;
 using Moq;
 
 namespace BLL.Tests
@@ -16,11 +17,15 @@ namespace BLL.Tests
     {
         private readonly Mock<IUnitOfWork> _dbMock = new Mock<IUnitOfWork>();
         private readonly IMapper _mapper;
+        private readonly Mock<UserManager<User>> _userManagerMock;
+        private readonly Mock<RoleManager<IdentityRole>> _roleManagerMock;
 
         public CommentServiceTests()
         {
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile<AutoMapperProfile>());
             _mapper = new AutoMapper.Mapper(configuration);
+            _userManagerMock = TestHelpers.MockUserManager<User>();
+            _roleManagerMock = TestHelpers.MockRoleManager<IdentityRole>();
         }
 
         [Fact]
@@ -32,7 +37,7 @@ namespace BLL.Tests
             var games = _mapper.Map<IEnumerable<Comment>>(expected);
             _dbMock.Setup(x => x.CommentRepository.GetAllAsync())
                    .ReturnsAsync(games);
-            var commentService = new CommentService(_mapper, _dbMock.Object);
+            var commentService = new CommentService(_mapper, _dbMock.Object, _userManagerMock.Object);
 
             //act
             var actual = (await commentService.GetAllAsync()).ToList();
@@ -53,7 +58,7 @@ namespace BLL.Tests
             var games = _mapper.Map<IEnumerable<Comment>>(expected);
             _dbMock.Setup(x => x.CommentRepository.GetByGameIdAsync(neededId))
                    .ReturnsAsync(games);
-            var commentService = new CommentService(_mapper, _dbMock.Object);
+            var commentService = new CommentService(_mapper, _dbMock.Object, _userManagerMock.Object);
 
             //act
             var actual = await commentService.GetGameComments(neededId);
@@ -72,7 +77,7 @@ namespace BLL.Tests
             var games = _mapper.Map<IEnumerable<Comment>>(expected);
             _dbMock.Setup(x => x.CommentRepository.GetByGameIdAsync(neededId))
                    .ReturnsAsync(games);
-            var commentService = new CommentService(_mapper, _dbMock.Object);
+            var commentService = new CommentService(_mapper, _dbMock.Object, _userManagerMock.Object);
 
             //act
             var actual = await commentService.GetGameComments(neededId);
@@ -91,7 +96,7 @@ namespace BLL.Tests
             var game = _mapper.Map<Comment>(expected);
             _dbMock.Setup(x => x.CommentRepository.GetByIdAsync(neededId))
                    .ReturnsAsync(game);
-            var commentService = new CommentService(_mapper, _dbMock.Object);
+            var commentService = new CommentService(_mapper, _dbMock.Object, _userManagerMock.Object);
 
             //act
             var actual = await commentService.GetByIdAsync(neededId);
@@ -109,7 +114,7 @@ namespace BLL.Tests
             Comment expected = null;
             _dbMock.Setup(x => x.CommentRepository.GetByIdAsync(neededId))
                    .ReturnsAsync(expected);
-            var commentService = new CommentService(_mapper, _dbMock.Object);
+            var commentService = new CommentService(_mapper, _dbMock.Object, _userManagerMock.Object);
 
             //act
             Func<Task> act = async () => await commentService.GetByIdAsync(neededId);
@@ -128,7 +133,7 @@ namespace BLL.Tests
                                     .Create();
             _dbMock.Setup(x => x.CommentRepository.AddAsync(It.IsAny<Comment>()));
             _dbMock.Setup(x => x.SaveAsync()).Verifiable();
-            var commentService = new CommentService(_mapper, _dbMock.Object);
+            var commentService = new CommentService(_mapper, _dbMock.Object, _userManagerMock.Object);
 
             //act
             var actual = await commentService.AddAsync(modelToAdd);
@@ -149,7 +154,7 @@ namespace BLL.Tests
                                     .Create();
             _dbMock.Setup(x => x.CommentRepository.Delete(It.IsAny<Comment>()));
             _dbMock.Setup(x => x.SaveAsync()).Verifiable();
-            var commentService = new CommentService(_mapper, _dbMock.Object);
+            var commentService = new CommentService(_mapper, _dbMock.Object, _userManagerMock.Object);
 
             //act & assert
             await commentService.DeleteAsync(modelToDelete);
@@ -167,7 +172,7 @@ namespace BLL.Tests
                    .ReturnsAsync(existedComment);
             _dbMock.Setup(x => x.CommentRepository.Update(It.IsAny<Comment>()));
             _dbMock.Setup(x => x.SaveAsync()).Verifiable();
-            var commentService = new CommentService(_mapper, _dbMock.Object);
+            var commentService = new CommentService(_mapper, _dbMock.Object, _userManagerMock.Object);
 
             //act & assert
             await commentService.UpdateAsync(modelToUpdate);
@@ -185,7 +190,7 @@ namespace BLL.Tests
                    .ReturnsAsync(existedComment);
             _dbMock.Setup(x => x.CommentRepository.Update(It.IsAny<Comment>()));
            
-            var commentService = new CommentService(_mapper, _dbMock.Object);
+            var commentService = new CommentService(_mapper, _dbMock.Object, _userManagerMock.Object);
 
             //act
             Func<Task> act = async () =>  await commentService.UpdateAsync(modelToUpdate);
