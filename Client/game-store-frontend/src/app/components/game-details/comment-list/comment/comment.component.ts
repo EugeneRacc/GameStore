@@ -3,6 +3,7 @@ import {ICommentModel} from "../../../../models/comment.model";
 import {UserService} from "../../../../services/user.service";
 import {CommentService} from "../../../../services/comment.service";
 import {AuthenticationService} from "../../../../services/authentication.service";
+import {IUserModel} from "../../../../models/user.model";
 
 @Component({
   selector: 'app-comment',
@@ -13,7 +14,7 @@ export class CommentComponent implements OnInit {
   @Input() currentComment: ICommentModel;
   @Input("replies") commentReplies: ICommentModel[];
   currentUserName: string = "";
-  currentUserId: string = "";
+  currentUser: IUserModel;
   replyComment = false;
   updateComment = false;
   commentToDelete = false;
@@ -24,7 +25,7 @@ export class CommentComponent implements OnInit {
     this.authService.currentUser
       .subscribe(user => {
         if (user) {
-          this.currentUserId = user.id;
+          this.currentUser = user;
         }
       });
     this.userService.getUserById(this.currentComment.userId)

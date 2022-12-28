@@ -20,9 +20,10 @@
     </div>
     <div class="comment__reply">
       <p class="reply" (click)="replyComment = !replyComment">Reply</p>
-      <p class="update" *ngIf="currentUserId === currentComment.userId"
+      <p class="update" *ngIf="currentUser.id === currentComment.userId"
          (click)="updateComment = !updateComment">Update</p>
-      <p class="delete" *ngIf="currentUserId === currentComment.userId"
+      <p class="delete" *ngIf="currentUser.id === currentComment.userId ||
+      currentUser.roleNames.includes('Managers')"
       (click)="onDeleteComment(currentComment)">Delete</p>
     </div>
     <div class="reply-comment" *ngIf="replyComment">
