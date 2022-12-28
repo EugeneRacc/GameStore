@@ -8,7 +8,7 @@
 
 .footer__logo {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .footer__logo img {

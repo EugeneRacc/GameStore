@@ -4,7 +4,7 @@
   background-size: cover;
   background-position: center;
   display: flex;
-  align-items: end;
+  align-items: flex-end;
 }
 
 .game__large {
@@ -44,7 +44,7 @@ img {
 
 .game__genres {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .game__title {
