@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../services/authentication.service";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,9 @@ import {AuthenticationService} from "../../services/authentication.service";
 export class NavbarComponent implements OnInit {
   isUserAuthenticated = false;
   currentUserName = "";
-  constructor(private router: Router, private authService: AuthenticationService) { }
+  amountInCart = 0;
+  constructor(private router: Router, private authService: AuthenticationService,
+              private cartService: CartService) { }
 
   ngOnInit(): void {
     this.authService.isAuth
@@ -20,6 +23,12 @@ export class NavbarComponent implements OnInit {
         if(user != null) {
           this.currentUserName = user.firstName + " " + user.lastName;
         }
+      });
+    this.cartService.gamesInOrderS
+      .subscribe(games => {
+        this.amountInCart = games.reduce((a, b) => {
+          return a + b.amount;
+        }, 0)
       })
   }
 
@@ -34,4 +43,5 @@ export class NavbarComponent implements OnInit {
     this.authService.setNewCurrentUser(null);
     this.router.navigateByUrl('main-page');
   }
+
 }

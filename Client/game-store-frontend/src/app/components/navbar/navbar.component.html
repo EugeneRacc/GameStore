@@ -4,19 +4,29 @@
     <p>Game Store</p>
   </div>
   <nav>
-  <ul class="nav__links">
-    <li><a routerLink="/main-page">Games</a></li>
-    <li><a href="#">Community</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Support</a></li>
-  </ul>
+    <ul class="nav__links">
+      <li><a routerLink="/main-page">Games</a></li>
+      <li><a href="#">Community</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Support</a></li>
+    </ul>
   </nav>
   <div class="nav__auth" *ngIf="!isUserAuthenticated">
+    <a routerLink="/cart" class="nav__cart">
+      <img src="assets/icons/cart.svg" alt="Cart Icon">
+      <p *ngIf="amountInCart">{{ amountInCart }}</p>
+    </a>
     <a routerLink="main-page/login">Sign in</a>
     <a routerLink="/register" style="margin-left: 1em">Sign up</a>
   </div>
   <div class="nav__logout" *ngIf="isUserAuthenticated">
     <p style="display: inline">{{ currentUserName }}</p>
-    <a  routerLink="main-page" style="margin-left: 1em" (click)="onLogout()">Logout</a>
+    <a routerLink="/cart" class="nav__cart">
+      <img src="assets/icons/cart.svg" alt="Cart Icon">
+      <p *ngIf="amountInCart">{{ amountInCart }}</p>
+    </a>
+    <a routerLink="main-page" style="margin-left: 1em" (click)="onLogout()">
+      <img src="assets/icons/logout.svg" alt="Logout Icon">
+    </a>
   </div>
 </header>

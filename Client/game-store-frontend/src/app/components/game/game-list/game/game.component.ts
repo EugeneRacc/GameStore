@@ -7,6 +7,7 @@ import {IGenre} from "../../../../models/genre.model";
 import {DomSanitizer} from "@angular/platform-browser";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthenticationService} from "../../../../services/authentication.service";
+import {CartService} from "../../../../services/cart.service";
 
 @Component({
   selector: 'app-game',
@@ -33,7 +34,8 @@ export class GameComponent implements OnInit {
   }
 
   constructor(private imageService: ImageService, private genreService: GenreService, private sanitizer: DomSanitizer,
-              private router: Router, private active: ActivatedRoute, private authService: AuthenticationService) {}
+              private router: Router, private active: ActivatedRoute, private authService: AuthenticationService,
+              private cartService: CartService) {}
 
   ngOnInit(): void {
     this.imageService.getImagesByGameId(this.game.id)
@@ -57,6 +59,12 @@ export class GameComponent implements OnInit {
 
   onOpenDetails() {
     this.router.navigate(['game-details', `${this.game.id}`]);
+  }
+
+  onAddToCart(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.cartService.addGameToOrder(this.game);
   }
 }
 

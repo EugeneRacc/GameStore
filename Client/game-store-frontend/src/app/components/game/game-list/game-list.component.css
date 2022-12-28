@@ -4,18 +4,17 @@
   display: flex;
   padding: 0 30px 0 30px;
   flex-wrap: wrap;
+  gap: 1em;
 }
 
 .games__item {
   position: relative;
   flex-basis: 22%;
   height: 20em;
-  margin: 0 1em 0 1em;
 }
 
 .games__bigger {
   flex-basis: 46%;
-  flex-grow: 1;
 }
 
 

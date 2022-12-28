@@ -6,6 +6,8 @@ import {EditGamePageComponent} from "./components/main-page/edit-game/edit-game-
 import {CreateGameComponent} from "./components/main-page/create-game/create-game.component";
 import {RegistrationComponent} from "./components/authentication/registration/registration.component";
 import {LoginComponent} from "./components/authentication/login/login.component";
+import {CartComponent} from "./components/cart/cart.component";
+import {ConfirmationOrderComponent} from "./components/confirmation-order/confirmation-order.component";
 
 
 const routes: Routes = [
@@ -22,6 +24,14 @@ const routes: Routes = [
   {
     path: "create",
     component: CreateGameComponent
+  },
+  {
+    path: "cart",
+    component: CartComponent
+  },
+  {
+    path: "confirmation",
+    component: ConfirmationOrderComponent
   },
   {
     path: "register",

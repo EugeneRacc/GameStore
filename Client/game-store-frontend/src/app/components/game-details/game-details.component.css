@@ -58,7 +58,7 @@ hr {
 
 .details__genres {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .details__genre {

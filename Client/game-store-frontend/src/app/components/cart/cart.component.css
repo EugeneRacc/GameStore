@@ -1,0 +1,31 @@
+.cart {
+  background-color: rgb(30, 30, 30);
+  padding: 1em;
+  width: 90%;
+  margin: 0 auto;
+}
+
+p {
+  font-size: 24px;
+}
+
+.cart__total {
+  font-weight: 700;
+}
+
+.cart__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.cart__amount {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+}
+
+button {
+  margin-bottom: 0;
+}
