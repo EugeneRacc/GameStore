@@ -8,6 +8,7 @@ import {RegistrationComponent} from "./components/authentication/registration/re
 import {LoginComponent} from "./components/authentication/login/login.component";
 import {CartComponent} from "./components/cart/cart.component";
 import {ConfirmationOrderComponent} from "./components/confirmation-order/confirmation-order.component";
+import {AdminPanelComponent} from "./components/admin-panel/admin-panel.component";
 
 
 const routes: Routes = [
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: "cart",
     component: CartComponent
+  },
+  {
+    path: "admin",
+    component: AdminPanelComponent
   },
   {
     path: "confirmation",

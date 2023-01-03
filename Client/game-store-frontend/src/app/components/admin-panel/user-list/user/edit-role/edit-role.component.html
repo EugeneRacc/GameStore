@@ -1,0 +1,11 @@
+<div class="edit-role">
+  <form #form='ngForm' (ngSubmit)="onSubmit()">
+    <p>User email: {{ currentUser.email }}</p>
+    <select name="roles" id="rolesList" [(ngModel)]="chosenRole">
+      <option *ngFor="let role of existedRoles" [ngValue]="role">
+        {{ role }}
+      </option>
+    </select>
+    <app-button [type]="'submit'" [nameOfButton]="'Change Role'"></app-button>
+  </form>
+</div>

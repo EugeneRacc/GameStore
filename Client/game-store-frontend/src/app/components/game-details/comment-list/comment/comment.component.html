@@ -23,7 +23,7 @@
       <p class="update" *ngIf="currentUser.id === currentComment.userId"
          (click)="updateComment = !updateComment">Update</p>
       <p class="delete" *ngIf="currentUser.id === currentComment.userId ||
-      currentUser.roleNames.includes('Managers')"
+      currentUser.roleNames.includes('Manager') || currentUser.roleNames.includes('Admin')"
       (click)="onDeleteComment(currentComment)">Delete</p>
     </div>
     <div class="reply-comment" *ngIf="replyComment">

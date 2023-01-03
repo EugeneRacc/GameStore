@@ -1,0 +1,15 @@
+.edit-role {
+  width: 50%;
+  margin: 0 auto;
+  background-color: rgb(45, 45, 45);
+  border-radius: 10px;
+  padding: 1em;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1em;
+}

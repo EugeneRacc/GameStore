@@ -1,0 +1,13 @@
+.admin-panel {
+  background-color: rgb(30, 30, 30);
+  padding: 1em;
+}
+
+.admin-panel__filter {
+  width: 15%;
+  margin-top: 1em;
+}
+
+h2 {
+  font-size: 24px;
+}
