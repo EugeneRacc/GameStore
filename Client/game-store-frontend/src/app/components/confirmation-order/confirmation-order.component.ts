@@ -17,7 +17,6 @@ export class ConfirmationOrderComponent implements OnInit {
     lastName: "",
     email: "",
     phone: "",
-    userId: "",
     paymentType: PaymentType.cash,
     orderDate: new Date(),
     comment: "",

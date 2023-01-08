@@ -6,25 +6,6 @@
   padding: 15px 3%;
 }
 
-.filter__search {
-  background-color: rgb(54, 53, 53);
-}
-
-img {
-  filter: invert(100%);
-}
-
-.filter__icon {
-  height: 20px;
-}
-
-input {
-  background-color: rgb(54, 53, 53);
-  height: 20px;
-  background-repeat: no-repeat;
-  background-position: 5px;
-}
-
 .filter__genre {
   padding: 5px;
   border-radius: 10px;

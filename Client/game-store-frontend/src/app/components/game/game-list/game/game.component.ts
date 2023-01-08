@@ -25,7 +25,7 @@ export class GameComponent implements OnInit {
   currentUserRole: string[] = [];
 
   @HostListener('mouseenter', ['$event']) onEnter() {
-    if (this.currentUserRole.includes("Admin")){
+    if (this.currentUserRole.includes("Admin") || this.currentUserRole.includes("Manager")){
       this.onShowEditPage = true;
     }
   }

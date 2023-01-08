@@ -4,11 +4,12 @@ import {Observable} from "rxjs";
 import {IGame} from "../models/game.model";
 import {GenreService} from "./genre.service";
 import {IGenre} from "../models/genre.model";
+import {ISearchingByName} from "../interfaces/iSearchingByName";
 
 @Injectable({
   providedIn: 'root'
 })
-export class GameService {
+export class GameService implements ISearchingByName{
   selectedNamesChanged = new EventEmitter<string>();
   successfulUpdates: boolean[] = []
   updatedGames = new EventEmitter<boolean[]>();

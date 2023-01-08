@@ -9,7 +9,7 @@ export interface IOrderModel {
   phone: string,
   paymentType: PaymentType,
   orderDate: Date,
-  userId: string,
+  userId?: string,
   comment: string,
   orderedGames: IGameWithIdInOrderModel[]
 }

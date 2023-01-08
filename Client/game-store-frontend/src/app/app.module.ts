@@ -29,6 +29,11 @@ import { CartComponent } from './components/cart/cart.component';
 import { ButtonComponent } from './components/helpers/button/button.component';
 import { CartItemComponent } from './components/cart/cart-item/cart-item.component';
 import { ConfirmationOrderComponent } from './components/confirmation-order/confirmation-order.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { FilterNameComponent } from './components/filter/filter-name/filter-name.component';
+import { UserListComponent } from './components/admin-panel/user-list/user-list.component';
+import { UserComponent } from './components/admin-panel/user-list/user/user.component';
+import { EditRoleComponent } from './components/admin-panel/user-list/user/edit-role/edit-role.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +60,12 @@ import { ConfirmationOrderComponent } from './components/confirmation-order/conf
     CartComponent,
     ButtonComponent,
     CartItemComponent,
-    ConfirmationOrderComponent
+    ConfirmationOrderComponent,
+    AdminPanelComponent,
+    FilterNameComponent,
+    UserListComponent,
+    UserComponent,
+    EditRoleComponent
   ],
   imports: [
     BrowserModule,

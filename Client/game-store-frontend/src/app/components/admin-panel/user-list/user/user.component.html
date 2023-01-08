@@ -1,0 +1,15 @@
+<div class="user">
+  <div class="user__logo">
+    <img src="assets/icons/user.svg" alt="User Logo">
+  </div>
+  <div class="user__username">
+    <p>UserName: {{ user.userName }}</p>
+    <p>Name: {{ user.firstName + " " + user.lastName }}</p>
+  </div>
+  <div class="user__email">
+    <p>Email: {{ user.email }}</p>
+    <p *ngFor="let role of user.roleNames">Role: {{ role }}</p>
+  </div>
+  <app-button [nameOfButton]="'Change Role'" [type]="'button'" (click)="onChangeRole()"></app-button>
+</div>
+<app-edit-role *ngIf="isChangeWindowExists" [currentUser]="user"></app-edit-role>
